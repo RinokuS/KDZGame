@@ -16,14 +16,19 @@ using System.Windows.Shapes;
 namespace KDZGame
 {
     /// <summary>
-    /// Логика взаимодействия для MainWindow.xaml
+    /// Логика взаимодействия для MainPage.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainPage : Page
     {
-        public MainWindow()
+        readonly Window _mainWindow;
+        public MainPage(Window mainWindow)
         {
             InitializeComponent();
-            Main.Navigate(new MainPage(this));
+            _mainWindow = mainWindow;
+        }
+        private void startBtnClick(object sender, RoutedEventArgs e)
+        {
+            ((MainWindow)_mainWindow).Main.Navigate(new FilterPage());
         }
     }
 }

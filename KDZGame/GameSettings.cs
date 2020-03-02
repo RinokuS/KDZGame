@@ -10,6 +10,6 @@ namespace KDZGame
     public static class GameSettings
     {
         public static DataTable myData = null;
-        public static DataTable enemyData = null;
+        public static List<string> names = null;
     }
 }
