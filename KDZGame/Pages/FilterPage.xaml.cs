@@ -181,7 +181,7 @@ namespace KDZGame
         private void BindDataCSV()
         {
             DataTable dt = new DataTable();
-            string[] lines = System.IO.File.ReadAllLines(@"HM3.csv");
+            string[] lines = System.IO.File.ReadAllLines(@"..\..\HM3.csv");
             List<string> names = new List<string>();
 
             if (lines.Length > 0)
@@ -231,7 +231,7 @@ namespace KDZGame
         private void BindDataCSVFilt(int atk, int spd, int gld)
         {
             DataTable dt = new DataTable();
-            string[] lines = System.IO.File.ReadAllLines(@"HM3.csv");
+            string[] lines = System.IO.File.ReadAllLines(@"..\..\HM3.csv");
 
             if (lines.Length > 0)
             {
@@ -288,7 +288,7 @@ namespace KDZGame
         void InitializeTeamBuild()
         {
             DataTable dt = new DataTable();
-            string[] lines = System.IO.File.ReadAllLines(@"HM3.csv");
+            string[] lines = System.IO.File.ReadAllLines(@"..\..\HM3.csv");
 
             if (lines.Length > 0)
             {
