@@ -88,21 +88,19 @@ namespace KDZGame
             {
                 for (int j = 0; j < GameSettings.myData.Rows.Count; j++)
                 {
-                    if ((string)GameSettings.myData.Rows[j]["Unit_name"] == name)
+                    if ((string)GameSettings.myData.Rows[j]["Unit_name"] == GameSettings.names[rnd.Next(GameSettings.names.Count)])
                     {
                         object[] copyrow = GameSettings.myData.Rows[j].ItemArray;
-                        dt.Rows.Add(copyrow);
-                        GameSettings.myData.Rows.Remove(GameSettings.myData.Rows[j]);
-                        GameSettings.names.Remove(name);
-                        GameSettings.myTeam.Add(new Hero((string)copyrow[0], (int)copyrow[1], (int)copyrow[2], (int)copyrow[3], (int)copyrow[4],
-                            (int)copyrow[5], (int)copyrow[6], (int)copyrow[7], (int)copyrow[8], (int)copyrow[9]));
+
+                        GameSettings.enemyTeam.Add(new Hero((string)copyrow[0], int.Parse((string)copyrow[1]), int.Parse((string)copyrow[2]), int.Parse((string)copyrow[3]), int.Parse((string)copyrow[4]),
+                            int.Parse((string)copyrow[5]), int.Parse((string)copyrow[6]), int.Parse((string)copyrow[7]), int.Parse((string)copyrow[8]), int.Parse((string)copyrow[9])));
                         break;
                     }
                 }
             }
 
             if (GameSettings.myTeam.Count == 5)
-                ((MainWindow)_mainWindow).Main.Navigate(new GamePage());
+                ((MainWindow)_mainWindow).Main.Navigate(new GamePage(GameSettings.myTeam, GameSettings.enemyTeam, 1));
         }
 
         /// <summary>
@@ -126,8 +124,9 @@ namespace KDZGame
                         dt.Rows.Add(copyrow);
                         GameSettings.myData.Rows.Remove(GameSettings.myData.Rows[i]);
                         GameSettings.names.Remove(name);
-                        GameSettings.myTeam.Add(new Hero((string)copyrow[0], (int)copyrow[1], (int)copyrow[2], (int)copyrow[3], (int)copyrow[4], 
-                            (int)copyrow[5], (int)copyrow[6], (int)copyrow[7], (int)copyrow[8], (int)copyrow[9]));
+                   
+                        GameSettings.myTeam.Add(new Hero((string)copyrow[0], int.Parse((string)copyrow[1]), int.Parse((string)copyrow[2]), int.Parse((string)copyrow[3]), int.Parse((string)copyrow[4]),
+                            int.Parse((string)copyrow[5]), int.Parse((string)copyrow[6]), int.Parse((string)copyrow[7]), int.Parse((string)copyrow[8]), int.Parse((string)copyrow[9])));
                         break;
                     }
                 }

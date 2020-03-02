@@ -20,9 +20,36 @@ namespace KDZGame
     /// </summary>
     public partial class GamePage : Page
     {
-        public GamePage()
+        List<Hero> _myTeam;
+        List<Hero> _enemyTeam;
+        int _round;
+        bool _isGaming;
+
+        public GamePage(List<Hero> myTeam, List<Hero> enemyTeam, int round)
         {
             InitializeComponent();
+
+            _myTeam = myTeam;
+            _enemyTeam = enemyTeam;
+            _round = round;
+
+            InitializeInterface();
+        }
+
+        void InitializeInterface()
+        {
+            InitializeTeam(Hero1, HP1, 1);
+            InitializeTeam(Hero2, HP2, 2);
+            InitializeTeam(Hero3, HP3, 3);
+            InitializeTeam(Hero4, HP4, 4);
+            InitializeTeam(Hero5, HP5, 5);
+        }
+
+        void InitializeTeam(Label label, ProgressBar bar, int number)
+        {
+            label.Content = GameSettings.myTeam[number - 1].Name;
+            bar.Maximum = GameSettings.myTeam[number - 1].Health;
+            bar.Value = GameSettings.myTeam[number - 1].Health;
         }
     }
 }

@@ -8,7 +8,27 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="GamePage">
 
-    <Grid>
-        
-    </Grid>
+    <Viewbox HorizontalAlignment="Left" VerticalAlignment="Top">
+        <Grid>
+            <Image Source="thumb-1920-169127.jpg" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,0,0,-70"/>
+            <StackPanel x:Name="team" HorizontalAlignment="Center" VerticalAlignment="Bottom">
+                <StackPanel x:Name="names" HorizontalAlignment="Center" VerticalAlignment="Bottom" Orientation="Horizontal" Margin="0,0,0,10">
+                    <Label x:Name="Hero1" Content="Label" Width="250" Height="60" Background="#C0C0C0" Margin="0" FontFamily="Viner Hand ITC" FontSize="24"/>
+                    <Label x:Name="Hero2" Content="Label" Width="250" Height="60" Background="#C0C0C0" Margin="30,0,0,0" FontFamily="Viner Hand ITC" FontSize="24"/>
+                    <Label x:Name="Hero3" Content="Label" Width="250" Height="60" Background="#C0C0C0" Margin="30,0,0,0" FontFamily="Viner Hand ITC" FontSize="24"/>
+                    <Label x:Name="Hero4" Content="Label" Width="250" Height="60" Background="#C0C0C0" Margin="30,0,0,0" FontFamily="Viner Hand ITC" FontSize="24"/>
+                    <Label x:Name="Hero5" Content="Label" Width="250" Height="60" Background="#C0C0C0" Margin="30,0,0,0" FontFamily="Viner Hand ITC" FontSize="24"/>
+                </StackPanel>
+
+                <StackPanel x:Name="healthBars" Orientation="Horizontal">
+                    <ProgressBar x:Name="HP1" Height="40" Width="250"/>
+                    <ProgressBar x:Name="HP2" Height="40" Width="250" Margin="30,0,0,0"/>
+                    <ProgressBar x:Name="HP3" Height="40" Width="250" Margin="30,0,0,0"/>
+                    <ProgressBar x:Name="HP4" Height="40" Width="250" Margin="30,0,0,0"/>
+                    <ProgressBar x:Name="HP5" Height="40" Width="250" Margin="30,0,0,0"/>
+
+                </StackPanel>
+            </StackPanel>
+        </Grid>
+    </Viewbox>
 </Page>

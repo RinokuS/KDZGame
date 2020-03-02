@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace KDZGame
 {
-    class Hero
+    public class Hero
     {
         public string Name { get; set; }
         public int Attack { get; set; }

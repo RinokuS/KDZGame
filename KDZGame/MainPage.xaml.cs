@@ -28,7 +28,7 @@ namespace KDZGame
         }
         private void startBtnClick(object sender, RoutedEventArgs e)
         {
-            ((MainWindow)_mainWindow).Main.Navigate(new FilterPage());
+            ((MainWindow)_mainWindow).Main.Navigate(new FilterPage(_mainWindow));
         }
     }
 }
