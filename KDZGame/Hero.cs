@@ -19,6 +19,7 @@ namespace KDZGame
         public int AI_Value { get; set; }
         public int Gold { get; set; }
         public bool Alive { get; set; }
+        public int RoundsDead { get; set; }
 
         /// <summary>
         /// Class constructor
@@ -46,6 +47,7 @@ namespace KDZGame
             AI_Value = AI_v;
             Gold = gold;
             Alive = true;
+            RoundsDead = 0;
         }
 
         public void AttackAction(Hero enemy)

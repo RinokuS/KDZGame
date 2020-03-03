@@ -12,23 +12,105 @@
         <Grid>
             <Image Source="thumb-1920-169127.jpg" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,0,0,-70"/>
             <StackPanel x:Name="team" HorizontalAlignment="Center" VerticalAlignment="Bottom">
-                <StackPanel x:Name="names" HorizontalAlignment="Center" VerticalAlignment="Bottom" Orientation="Horizontal" Margin="0,0,0,10">
+                <StackPanel x:Name="names" HorizontalAlignment="Left" VerticalAlignment="Bottom" Orientation="Horizontal" Margin="0,0,0,10">
                     <Label x:Name="Hero1" Content="Label" Width="250" Height="60" Background="#C0C0C0" Margin="0" FontFamily="Viner Hand ITC" FontSize="24"/>
-                    <Label x:Name="Hero2" Content="Label" Width="250" Height="60" Background="#C0C0C0" Margin="30,0,0,0" FontFamily="Viner Hand ITC" FontSize="24"/>
-                    <Label x:Name="Hero3" Content="Label" Width="250" Height="60" Background="#C0C0C0" Margin="30,0,0,0" FontFamily="Viner Hand ITC" FontSize="24"/>
-                    <Label x:Name="Hero4" Content="Label" Width="250" Height="60" Background="#C0C0C0" Margin="30,0,0,0" FontFamily="Viner Hand ITC" FontSize="24"/>
-                    <Label x:Name="Hero5" Content="Label" Width="250" Height="60" Background="#C0C0C0" Margin="30,0,0,0" FontFamily="Viner Hand ITC" FontSize="24"/>
+                    <Label x:Name="Hero2" Content="Label" Width="250" Height="60" Background="#C0C0C0" Margin="80,0,0,0" FontFamily="Viner Hand ITC" FontSize="24"/>
+                    <Label x:Name="Hero3" Content="Label" Width="250" Height="60" Background="#C0C0C0" Margin="80,0,0,0" FontFamily="Viner Hand ITC" FontSize="24"/>
+                    <Label x:Name="Hero4" Content="Label" Width="250" Height="60" Background="#C0C0C0" Margin="80,0,0,0" FontFamily="Viner Hand ITC" FontSize="24"/>
+                    <Label x:Name="Hero5" Content="Label" Width="250" Height="60" Background="#C0C0C0" Margin="80,0,0,0" FontFamily="Viner Hand ITC" FontSize="24"/>
                 </StackPanel>
-
+                <StackPanel Orientation="Horizontal">
+                    <StackPanel Width="300" Orientation="Horizontal">
+                        <StackPanel MaxWidth="60">
+                            <Label x:Name="atkLabel1" Content="Label" FontWeight="Bold" FontFamily="Stencil" Foreground="#FFD700" FontSize="14"/>
+                            <Label x:Name="dmgLabel1" Content="Label" FontWeight="Bold" FontFamily="Stencil" Foreground="#FFD700" FontSize="14"/>
+                        </StackPanel>
+                        <Button x:Name="atkButton1" Width="Auto" Background="Transparent" Click="atkButton1_Click">
+                            <Image Source="FAVPNG_sword-royalty-free-clip-art_2KhvgjAm.png" Height="50" Width="50"/>
+                        </Button>
+                        <StackPanel Margin="20,0,0,0" MaxWidth="60">
+                            <Label x:Name="defLabel1" Content="Label" FontWeight="Bold" FontFamily="Stencil" Foreground="#FFD700" FontSize="14"/>
+                            <Label x:Name="grthLabel1" Content="Label" FontWeight="Bold" FontFamily="Stencil" Foreground="#FFD700" FontSize="14"/>
+                        </StackPanel>
+                        <Button x:Name="defButton1" Width="Auto" Background="Transparent" Click="defButton1_Click">
+                            <Image Source="FAVPNG_shield-silhouette-shape_a0q4NBZc.png" Height="50" Width="50"/>
+                        </Button>
+                    </StackPanel>
+                    <StackPanel Width="300" Orientation="Horizontal" Margin="30,0,0,0">
+                        <StackPanel MaxWidth="60">
+                            <Label x:Name="atkLabel2" Content="Label" FontWeight="Bold" FontFamily="Stencil" Foreground="#FFD700" FontSize="14"/>
+                            <Label x:Name="dmgLabel2" Content="Label" FontWeight="Bold" FontFamily="Stencil" Foreground="#FFD700" FontSize="14"/>
+                        </StackPanel>
+                        <Button x:Name="atkButton2" Width="Auto" Background="Transparent" Click="atkButton2_Click">
+                            <Image Source="FAVPNG_sword-royalty-free-clip-art_2KhvgjAm.png" Height="50" Width="50"/>
+                        </Button>
+                        <StackPanel Margin="20,0,0,0" MaxWidth="60">
+                            <Label x:Name="defLabel2" Content="Label" FontWeight="Bold" FontFamily="Stencil" Foreground="#FFD700" FontSize="14"/>
+                            <Label x:Name="grthLabel2" Content="Label" FontWeight="Bold" FontFamily="Stencil" Foreground="#FFD700" FontSize="14"/>
+                        </StackPanel>
+                        <Button x:Name="defButton2" Width="Auto" Background="Transparent" Click="defButton2_Click">
+                            <Image Source="FAVPNG_shield-silhouette-shape_a0q4NBZc.png" Height="50" Width="50"/>
+                        </Button>
+                    </StackPanel>
+                    <StackPanel Width="300" Orientation="Horizontal" Margin="30,0,0,0">
+                        <StackPanel MaxWidth="60">
+                            <Label x:Name="atkLabel3" Content="Label" FontWeight="Bold" FontFamily="Stencil" Foreground="#FFD700" FontSize="14"/>
+                            <Label x:Name="dmgLabel3" Content="Label" FontWeight="Bold" FontFamily="Stencil" Foreground="#FFD700" FontSize="14"/>
+                        </StackPanel>
+                        <Button x:Name="atkButton3" Width="Auto" Background="Transparent" Click="atkButton3_Click">
+                            <Image Source="FAVPNG_sword-royalty-free-clip-art_2KhvgjAm.png" Height="50" Width="50"/>
+                        </Button>
+                        <StackPanel Margin="20,0,0,0" MaxWidth="60">
+                            <Label x:Name="defLabel3" Content="Label" Width="60" FontWeight="Bold" FontFamily="Stencil" Foreground="#FFD700" FontSize="14"/>
+                            <Label x:Name="grthLabel3" Content="Label" FontWeight="Bold" FontFamily="Stencil" Foreground="#FFD700" FontSize="14"/>
+                        </StackPanel>
+                        <Button x:Name="defButton3" Width="Auto" Background="Transparent" Click="defButton3_Click">
+                            <Image Source="FAVPNG_shield-silhouette-shape_a0q4NBZc.png" Height="50" Width="50"/>
+                        </Button>
+                    </StackPanel>
+                    <StackPanel Width="300" Orientation="Horizontal" Margin="30,0,0,0">
+                        <StackPanel MaxWidth="60">
+                            <Label x:Name="atkLabel4" Content="Label" FontWeight="Bold" FontFamily="Stencil" Foreground="#FFD700" FontSize="14"/>
+                            <Label x:Name="dmgLabel4" Content="Label" FontWeight="Bold" FontFamily="Stencil" Foreground="#FFD700" FontSize="14"/>
+                        </StackPanel>
+                        <Button x:Name="atkButton4" Width="Auto" Background="Transparent" Click="atkButton4_Click">
+                            <Image Source="FAVPNG_sword-royalty-free-clip-art_2KhvgjAm.png" Height="50" Width="50"/>
+                        </Button>
+                        <StackPanel Margin="20,0,0,0" MaxWidth="60">
+                            <Label x:Name="defLabel4" Content="Label" Width="60" FontWeight="Bold" FontFamily="Stencil" Foreground="#FFD700" FontSize="14"/>
+                            <Label x:Name="grthLabel4" Content="Label" FontWeight="Bold" FontFamily="Stencil" Foreground="#FFD700" FontSize="14"/>
+                        </StackPanel>
+                        <Button x:Name="defButton4" Width="Auto" Background="Transparent" Click="defButton4_Click">
+                            <Image Source="FAVPNG_shield-silhouette-shape_a0q4NBZc.png" Height="50" Width="50"/>
+                        </Button>
+                    </StackPanel>
+                    <StackPanel Width="300" Orientation="Horizontal" Margin="30,0,0,0">
+                        <StackPanel MaxWidth="60">
+                            <Label x:Name="atkLabel5" Content="Label" FontWeight="Bold" FontFamily="Stencil" Foreground="#FFD700" FontSize="14"/>
+                            <Label x:Name="dmgLabel5" Content="Label" FontWeight="Bold" FontFamily="Stencil" Foreground="#FFD700" FontSize="14"/>
+                        </StackPanel>
+                        <Button x:Name="atkButton5" Width="Auto" Background="Transparent" Click="atkButton5_Click">
+                            <Image Source="FAVPNG_sword-royalty-free-clip-art_2KhvgjAm.png" Height="50" Width="50"/>
+                        </Button>
+                        <StackPanel Margin="20,0,0,0" MaxWidth="60">
+                            <Label x:Name="defLabel5" Content="Label" FontWeight="Bold" FontFamily="Stencil" Foreground="#FFD700" FontSize="14"/>
+                            <Label x:Name="grthLabel5" Content="Label" FontWeight="Bold" FontFamily="Stencil" Foreground="#FFD700" FontSize="14"/>
+                        </StackPanel>
+                        <Button x:Name="defButton5" Width="Auto" Background="Transparent" Click="defButton5_Click">
+                            <Image Source="FAVPNG_shield-silhouette-shape_a0q4NBZc.png" Height="50" Width="50"/>
+                        </Button>
+                    </StackPanel>
+                </StackPanel>
                 <StackPanel x:Name="healthBars" Orientation="Horizontal">
-                    <ProgressBar x:Name="HP1" Height="40" Width="250"/>
-                    <ProgressBar x:Name="HP2" Height="40" Width="250" Margin="30,0,0,0"/>
-                    <ProgressBar x:Name="HP3" Height="40" Width="250" Margin="30,0,0,0"/>
-                    <ProgressBar x:Name="HP4" Height="40" Width="250" Margin="30,0,0,0"/>
-                    <ProgressBar x:Name="HP5" Height="40" Width="250" Margin="30,0,0,0"/>
-
+                    <ProgressBar x:Name="HP1" Height="40" Width="300"/>
+                    <ProgressBar x:Name="HP2" Height="40" Width="300" Margin="30,0,0,0"/>
+                    <ProgressBar x:Name="HP3" Height="40" Width="300" Margin="30,0,0,0"/>
+                    <ProgressBar x:Name="HP4" Height="40" Width="300" Margin="30,0,0,0"/>
+                    <ProgressBar x:Name="HP5" Height="40" Width="300" Margin="30,0,0,0"/>
                 </StackPanel>
             </StackPanel>
+            <TextBox x:Name="gameInfoBox" HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Center" Width="600" Background="Transparent" Foreground="#E0FFFF" FontSize="36" TextAlignment="Center"/>
+
         </Grid>
     </Viewbox>
 </Page>

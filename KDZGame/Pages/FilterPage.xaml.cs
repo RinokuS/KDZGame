@@ -40,17 +40,13 @@ namespace KDZGame
         {
             BindDataCSV();
 
-            if (!addingStack.IsEnabled)
-            {
-                addingStack.IsEnabled = true;
-                addingStack.Visibility = Visibility.Visible;
-                InitializeTeamBuild();
-            }
-            if (!applyChangesBtn.IsEnabled)
-            {
-                applyChangesBtn.IsEnabled = true;
-                applyChangesBtn.Visibility = Visibility.Visible;
-            }
+            addingStack.IsEnabled = true;
+            addingStack.Visibility = Visibility.Visible;
+            InitializeTeamBuild();
+            GameSettings.myTeam = new List<Hero>();
+
+            applyChangesBtn.IsEnabled = true;
+            applyChangesBtn.Visibility = Visibility.Visible;
         }
 
         private void updateDataClick(object sender, RoutedEventArgs e)
@@ -100,7 +96,7 @@ namespace KDZGame
             }
 
             if (GameSettings.myTeam.Count == 5)
-                ((MainWindow)_mainWindow).Main.Navigate(new GamePage(GameSettings.myTeam, GameSettings.enemyTeam, 1));
+                ((MainWindow)_mainWindow).Main.Navigate(new GamePage(_mainWindow, GameSettings.myTeam, GameSettings.enemyTeam, 1));
         }
 
         /// <summary>
@@ -181,45 +177,53 @@ namespace KDZGame
         private void BindDataCSV()
         {
             DataTable dt = new DataTable();
-            string[] lines = System.IO.File.ReadAllLines(@"..\..\HM3.csv");
-            List<string> names = new List<string>();
-
-            if (lines.Length > 0)
+            try
             {
-                // first line to create header
+                string[] lines = System.IO.File.ReadAllLines(@"..\..\HM3.csv");
 
-                string firstLine = lines[0];
-                string[] headerLabels = firstLine.Split(';');
+                List<string> names = new List<string>();
 
-                foreach (string header in headerLabels)
+                if (lines.Length > 0)
                 {
-                    dt.Columns.Add(new DataColumn(header));
-                }
+                    // first line to create header
 
-                // for data
-
-                for (int i = 1; i < lines.Length; i++)
-                {
-                    string[] dataWords = lines[i].Split(';');
-                    DataRow dr = dt.NewRow();
-                    int columnIndex = 0;
+                    string firstLine = lines[0];
+                    string[] headerLabels = firstLine.Split(';');
 
                     foreach (string header in headerLabels)
                     {
-                        dr[header] = dataWords[columnIndex++];
+                        dt.Columns.Add(new DataColumn(header));
                     }
 
-                    names.Add((string)dr["Unit_name"]);
-                    dt.Rows.Add(dr);
+                    // for data
+
+                    for (int i = 1; i < lines.Length; i++)
+                    {
+                        string[] dataWords = lines[i].Split(';');
+                        DataRow dr = dt.NewRow();
+                        int columnIndex = 0;
+
+                        foreach (string header in headerLabels)
+                        {
+                            dr[header] = dataWords[columnIndex++];
+                        }
+
+                        names.Add((string)dr["Unit_name"]);
+                        dt.Rows.Add(dr);
+                    }
+                }
+
+                if (dt.Rows.Count > 0)
+                {
+                    heroData.ItemsSource = dt.DefaultView;
+                    GameSettings.myData = dt;
+                    GameSettings.names = names;
+                    heroData.Columns[0].IsReadOnly = true;
                 }
             }
-
-            if (dt.Rows.Count > 0)
+            catch (System.IO.IOException)
             {
-                heroData.ItemsSource = dt.DefaultView;
-                GameSettings.myData = dt;
-                GameSettings.names = names;
-                heroData.Columns[0].IsReadOnly = true;
+                Console.WriteLine("Закрой файл, или я тебя укушу");
             }
         }
         /// <summary>
@@ -231,55 +235,62 @@ namespace KDZGame
         private void BindDataCSVFilt(int atk, int spd, int gld)
         {
             DataTable dt = new DataTable();
-            string[] lines = System.IO.File.ReadAllLines(@"..\..\HM3.csv");
-
-            if (lines.Length > 0)
+            try
             {
-                // first line to create header
+                string[] lines = System.IO.File.ReadAllLines(@"..\..\HM3.csv");
 
-                string firstLine = lines[0];
-                string[] headerLabels = firstLine.Split(';');
-
-                foreach (string header in headerLabels)
+                if (lines.Length > 0)
                 {
-                    dt.Columns.Add(new DataColumn(header));
+                    // first line to create header
+
+                    string firstLine = lines[0];
+                    string[] headerLabels = firstLine.Split(';');
+
+                    foreach (string header in headerLabels)
+                    {
+                        dt.Columns.Add(new DataColumn(header));
+                    }
+
+                    // for data
+
+                    for (int i = 0; i < GameSettings.myData.Rows.Count; i++)
+                    {
+                        object[] copyrow = GameSettings.myData.Rows[i].ItemArray;
+                        dt.Rows.Add(copyrow);
+                    }
                 }
 
-                // for data
+                for (int i = 0; i < dt.Rows.Count; i++)
+                {
+                    if (int.Parse((string)dt.Rows[i]["Attack"]) < atk)
+                    {
+                        dt.Rows.Remove(dt.Rows[i]);
+                        i--;
+                        continue;
+                    }
+                    if (int.Parse((string)dt.Rows[i]["Speed"]) < spd)
+                    {
+                        dt.Rows.Remove(dt.Rows[i]);
+                        i--;
+                        continue;
+                    }
+                    if (int.Parse((string)dt.Rows[i]["Gold"]) < gld)
+                    {
+                        dt.Rows.Remove(dt.Rows[i]);
+                        i--;
+                        continue;
+                    }
+                }
 
-                for (int i = 0; i < GameSettings.myData.Rows.Count; i++)
+                if (dt.Rows.Count > 0)
                 {
-                    object[] copyrow = GameSettings.myData.Rows[i].ItemArray;
-                    dt.Rows.Add(copyrow);
-                }
-            }       
-
-            for (int i = 0; i < dt.Rows.Count; i++)
-            {
-                if (int.Parse((string)dt.Rows[i]["Attack"]) < atk)
-                {
-                    dt.Rows.Remove(dt.Rows[i]);
-                    i--;
-                    continue;
-                }
-                if (int.Parse((string)dt.Rows[i]["Speed"]) < spd)
-                {
-                    dt.Rows.Remove(dt.Rows[i]);
-                    i--;
-                    continue;
-                }
-                if (int.Parse((string)dt.Rows[i]["Gold"]) < gld)
-                {
-                    dt.Rows.Remove(dt.Rows[i]);
-                    i--;
-                    continue;
+                    heroData.ItemsSource = dt.DefaultView;
+                    heroData.Columns[0].IsReadOnly = true;
                 }
             }
-
-            if (dt.Rows.Count > 0)
+            catch (System.IO.IOException)
             {
-                heroData.ItemsSource = dt.DefaultView;
-                heroData.Columns[0].IsReadOnly = true;
+                Console.WriteLine("Закрой файл, или я тебя укушу");
             }
         }
         /// <summary>
@@ -288,22 +299,30 @@ namespace KDZGame
         void InitializeTeamBuild()
         {
             DataTable dt = new DataTable();
-            string[] lines = System.IO.File.ReadAllLines(@"..\..\HM3.csv");
 
-            if (lines.Length > 0)
+            try
             {
-                // first line to create header
+                string[] lines = System.IO.File.ReadAllLines(@"..\..\HM3.csv");
 
-                string firstLine = lines[0];
-                string[] headerLabels = firstLine.Split(';');
-
-                foreach (string header in headerLabels)
+                if (lines.Length > 0)
                 {
-                    dt.Columns.Add(new DataColumn(header));
-                }
-            }
+                    // first line to create header
 
-            teamData.ItemsSource = dt.DefaultView;
+                    string firstLine = lines[0];
+                    string[] headerLabels = firstLine.Split(';');
+
+                    foreach (string header in headerLabels)
+                    {
+                        dt.Columns.Add(new DataColumn(header));
+                    }
+                }
+
+                teamData.ItemsSource = dt.DefaultView;
+            }
+            catch (System.IO.IOException)
+            {
+                Console.WriteLine("Закрой файл, или я тебя укушу");
+            } 
         }
         /// <summary>
         /// Method for Updating our DataGrid
