@@ -42,6 +42,7 @@
                         </StackPanel>
                     </StackPanel>
                     <Button x:Name="startGame" Content="Continue" Width="180" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="70,0,0,0" FontFamily="Viner Hand ITC" FontSize="36" Background="#C0C0C0" Click="startGame_Click" Height="80"/>
+                    <DataGrid Width="100"/>
 
                 </StackPanel>
             </StackPanel>
