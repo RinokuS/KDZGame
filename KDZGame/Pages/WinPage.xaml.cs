@@ -25,6 +25,14 @@ namespace KDZGame
         {
             InitializeComponent();
             _mainWindow = mainWindow;
+
+            massageBox.Text = "Congratulations! \r\n" +
+                "Victory";
+        }
+
+        private void endBtn_Click(object sender, RoutedEventArgs e)
+        {
+            ((MainWindow)_mainWindow).Main.Navigate(new MainPage(_mainWindow));
         }
     }
 }

@@ -107,7 +107,8 @@ namespace KDZGame
         /// <param name="e"></param>
         private void addHero(object sender, RoutedEventArgs e)
         {
-            string name = addHeroName.Text;
+            DataRowView row = (heroData.SelectedItem as DataRowView) ?? (teamData.SelectedItem as DataRowView);
+            string selectedHero = row[0].ToString();
 
             DataTable dt = ((DataView)teamData.ItemsSource).ToTable();
 
@@ -115,12 +116,12 @@ namespace KDZGame
             {
                 for (int i = 0; i < GameSettings.myData.Rows.Count; i++)
                 {
-                    if ((string)GameSettings.myData.Rows[i]["Unit_name"] == name)
+                    if ((string)GameSettings.myData.Rows[i]["Unit_name"] == selectedHero)
                     {
                         object[] copyrow = GameSettings.myData.Rows[i].ItemArray;
                         dt.Rows.Add(copyrow);
                         GameSettings.myData.Rows.Remove(GameSettings.myData.Rows[i]);
-                        GameSettings.names.Remove(name);
+                        GameSettings.names.Remove(selectedHero);
                    
                         GameSettings.myTeam.Add(new Hero((string)copyrow[0], int.Parse((string)copyrow[1]), int.Parse((string)copyrow[2]), int.Parse((string)copyrow[3]), int.Parse((string)copyrow[4]),
                             int.Parse((string)copyrow[5]), int.Parse((string)copyrow[6]), int.Parse((string)copyrow[7]), int.Parse((string)copyrow[8]), int.Parse((string)copyrow[9])));
@@ -140,7 +141,8 @@ namespace KDZGame
         /// <param name="e"></param>
         private void removeHero(object sender, RoutedEventArgs e)
         {
-            string name = addHeroName.Text;
+            DataRowView row = (heroData.SelectedItem as DataRowView) ?? (teamData.SelectedItem as DataRowView);
+            string selectedHero = row[0].ToString();
 
             DataTable dt = ((DataView)teamData.ItemsSource).ToTable();
             
@@ -148,16 +150,16 @@ namespace KDZGame
             {
                 for (int i = 0; i < dt.Rows.Count; i++)
                 {
-                    if ((string)dt.Rows[i]["Unit_name"] == name)
+                    if ((string)dt.Rows[i]["Unit_name"] == selectedHero)
                     {
                         object[] copyrow = dt.Rows[i].ItemArray;
                         GameSettings.myData.Rows.Add(copyrow);
                         dt.Rows.Remove(dt.Rows[i]);
-                        GameSettings.names.Add(name);
+                        GameSettings.names.Add(selectedHero);
                         // Deleting Hero from our Team List
                         for (int j = 0; j < GameSettings.myTeam.Count; j++)
                         {
-                            if (GameSettings.myTeam[j].Name == name)
+                            if (GameSettings.myTeam[j].Name == selectedHero)
                             {
                                 GameSettings.myTeam.Remove(GameSettings.myTeam[j]);
                                 break;

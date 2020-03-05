@@ -1,158 +1,158 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Game>
   <Round>1</Round>
-  <Stage>Defence</Stage>
+  <Stage>Attack</Stage>
   <AllyTeam>
     <Hero1>
-      <Name>AzureDragon</Name>
-      <Attack>50</Attack>
-      <Defence>50</Defence>
-      <minDmg>70</minDmg>
-      <maxDmg>80</maxDmg>
-      <maxHealth>1000</maxHealth>
-      <Health>1000</Health>
-      <Speed>19</Speed>
-      <Growth>1</Growth>
-      <AI_Value>78845</AI_Value>
-      <Gold>30000</Gold>
+      <Name>Archer</Name>
+      <Attack>6</Attack>
+      <Defence>3</Defence>
+      <minDmg>2</minDmg>
+      <maxDmg>3</maxDmg>
+      <maxHealth>10</maxHealth>
+      <Health>10</Health>
+      <Speed>4</Speed>
+      <Growth>9</Growth>
+      <AI_Value>126</AI_Value>
+      <Gold>100</Gold>
       <Alive>True</Alive>
       <RoundsDead>0</RoundsDead>
     </Hero1>
     <Hero2>
-      <Name>CrystalDragon</Name>
-      <Attack>40</Attack>
-      <Defence>40</Defence>
-      <minDmg>60</minDmg>
-      <maxDmg>75</maxDmg>
-      <maxHealth>800</maxHealth>
-      <Health>796</Health>
-      <Speed>16</Speed>
-      <Growth>1</Growth>
-      <AI_Value>39338</AI_Value>
-      <Gold>20000</Gold>
+      <Name>Swordsman</Name>
+      <Attack>10</Attack>
+      <Defence>12</Defence>
+      <minDmg>6</minDmg>
+      <maxDmg>9</maxDmg>
+      <maxHealth>35</maxHealth>
+      <Health>35</Health>
+      <Speed>5</Speed>
+      <Growth>4</Growth>
+      <AI_Value>445</AI_Value>
+      <Gold>300</Gold>
       <Alive>True</Alive>
       <RoundsDead>0</RoundsDead>
     </Hero2>
     <Hero3>
-      <Name>RustDragon</Name>
-      <Attack>30</Attack>
-      <Defence>30</Defence>
-      <minDmg>50</minDmg>
-      <maxDmg>50</maxDmg>
-      <maxHealth>750</maxHealth>
-      <Health>739</Health>
-      <Speed>17</Speed>
-      <Growth>1</Growth>
-      <AI_Value>26433</AI_Value>
-      <Gold>15000</Gold>
+      <Name>Zealot</Name>
+      <Attack>12</Attack>
+      <Defence>10</Defence>
+      <minDmg>10</minDmg>
+      <maxDmg>12</maxDmg>
+      <maxHealth>30</maxHealth>
+      <Health>30</Health>
+      <Speed>7</Speed>
+      <Growth>3</Growth>
+      <AI_Value>750</AI_Value>
+      <Gold>450</Gold>
       <Alive>True</Alive>
       <RoundsDead>0</RoundsDead>
     </Hero3>
     <Hero4>
-      <Name>GoldDragon</Name>
-      <Attack>27</Attack>
-      <Defence>27</Defence>
-      <minDmg>40</minDmg>
-      <maxDmg>50</maxDmg>
-      <maxHealth>250</maxHealth>
-      <Health>245</Health>
-      <Speed>16</Speed>
-      <Growth>1</Growth>
-      <AI_Value>8613</AI_Value>
-      <Gold>4000</Gold>
+      <Name>Crusader</Name>
+      <Attack>12</Attack>
+      <Defence>12</Defence>
+      <minDmg>7</minDmg>
+      <maxDmg>10</maxDmg>
+      <maxHealth>35</maxHealth>
+      <Health>35</Health>
+      <Speed>6</Speed>
+      <Growth>4</Growth>
+      <AI_Value>558</AI_Value>
+      <Gold>400</Gold>
       <Alive>True</Alive>
       <RoundsDead>0</RoundsDead>
     </Hero4>
     <Hero5>
-      <Name>BlackDragon</Name>
-      <Attack>25</Attack>
-      <Defence>25</Defence>
-      <minDmg>40</minDmg>
-      <maxDmg>50</maxDmg>
-      <maxHealth>300</maxHealth>
-      <Health>293</Health>
-      <Speed>15</Speed>
-      <Growth>1</Growth>
-      <AI_Value>8721</AI_Value>
-      <Gold>4000</Gold>
+      <Name>RoyalGriffin</Name>
+      <Attack>9</Attack>
+      <Defence>9</Defence>
+      <minDmg>3</minDmg>
+      <maxDmg>6</maxDmg>
+      <maxHealth>25</maxHealth>
+      <Health>25</Health>
+      <Speed>9</Speed>
+      <Growth>7</Growth>
+      <AI_Value>448</AI_Value>
+      <Gold>240</Gold>
       <Alive>True</Alive>
       <RoundsDead>0</RoundsDead>
     </Hero5>
   </AllyTeam>
   <EnemyTeam>
     <Hero1>
-      <Name>WoodElf</Name>
-      <Attack>9</Attack>
-      <Defence>5</Defence>
+      <Name>Wight</Name>
+      <Attack>7</Attack>
+      <Defence>7</Defence>
       <minDmg>3</minDmg>
       <maxDmg>5</maxDmg>
-      <maxHealth>15</maxHealth>
-      <Health>-60</Health>
-      <Speed>6</Speed>
+      <maxHealth>18</maxHealth>
+      <Health>18</Health>
+      <Speed>5</Speed>
       <Growth>7</Growth>
-      <AI_Value>234</AI_Value>
+      <AI_Value>252</AI_Value>
       <Gold>200</Gold>
-      <Alive>False</Alive>
+      <Alive>True</Alive>
       <RoundsDead>0</RoundsDead>
     </Hero1>
     <Hero2>
-      <Name>Ogre</Name>
-      <Attack>13</Attack>
+      <Name>Mummy</Name>
+      <Attack>7</Attack>
       <Defence>7</Defence>
-      <minDmg>6</minDmg>
-      <maxDmg>12</maxDmg>
-      <maxHealth>40</maxHealth>
-      <Health>-35</Health>
-      <Speed>4</Speed>
-      <Growth>4</Growth>
-      <AI_Value>416</AI_Value>
+      <minDmg>3</minDmg>
+      <maxDmg>5</maxDmg>
+      <maxHealth>30</maxHealth>
+      <Health>30</Health>
+      <Speed>5</Speed>
+      <Growth>7</Growth>
+      <AI_Value>270</AI_Value>
       <Gold>300</Gold>
-      <Alive>False</Alive>
+      <Alive>True</Alive>
       <RoundsDead>0</RoundsDead>
     </Hero2>
     <Hero3>
-      <Name>WyvernMonarch</Name>
-      <Attack>14</Attack>
-      <Defence>14</Defence>
-      <minDmg>18</minDmg>
-      <maxDmg>22</maxDmg>
-      <maxHealth>70</maxHealth>
-      <Health>-25</Health>
-      <Speed>11</Speed>
-      <Growth>2</Growth>
-      <AI_Value>1518</AI_Value>
-      <Gold>1100</Gold>
-      <Alive>False</Alive>
+      <Name>Goblin</Name>
+      <Attack>4</Attack>
+      <Defence>2</Defence>
+      <minDmg>1</minDmg>
+      <maxDmg>2</maxDmg>
+      <maxHealth>5</maxHealth>
+      <Health>5</Health>
+      <Speed>5</Speed>
+      <Growth>15</Growth>
+      <AI_Value>60</AI_Value>
+      <Gold>40</Gold>
+      <Alive>True</Alive>
       <RoundsDead>0</RoundsDead>
     </Hero3>
     <Hero4>
-      <Name>StormElemental</Name>
-      <Attack>9</Attack>
-      <Defence>9</Defence>
-      <minDmg>2</minDmg>
-      <maxDmg>8</maxDmg>
-      <maxHealth>25</maxHealth>
-      <Health>-50</Health>
-      <Speed>8</Speed>
-      <Growth>6</Growth>
-      <AI_Value>486</AI_Value>
-      <Gold>275</Gold>
-      <Alive>False</Alive>
+      <Name>Monk</Name>
+      <Attack>12</Attack>
+      <Defence>7</Defence>
+      <minDmg>10</minDmg>
+      <maxDmg>12</maxDmg>
+      <maxHealth>30</maxHealth>
+      <Health>30</Health>
+      <Speed>5</Speed>
+      <Growth>3</Growth>
+      <AI_Value>485</AI_Value>
+      <Gold>400</Gold>
+      <Alive>True</Alive>
       <RoundsDead>0</RoundsDead>
     </Hero4>
     <Hero5>
-      <Name>SilverPegasus</Name>
-      <Attack>9</Attack>
-      <Defence>10</Defence>
-      <minDmg>5</minDmg>
-      <maxDmg>9</maxDmg>
-      <maxHealth>30</maxHealth>
-      <Health>-37</Health>
-      <Speed>12</Speed>
-      <Growth>5</Growth>
-      <AI_Value>532</AI_Value>
-      <Gold>275</Gold>
-      <Alive>False</Alive>
+      <Name>FaerieDragon</Name>
+      <Attack>20</Attack>
+      <Defence>20</Defence>
+      <minDmg>20</minDmg>
+      <maxDmg>30</maxDmg>
+      <maxHealth>500</maxHealth>
+      <Health>500</Health>
+      <Speed>15</Speed>
+      <Growth>1</Growth>
+      <AI_Value>19580</AI_Value>
+      <Gold>10000</Gold>
+      <Alive>True</Alive>
       <RoundsDead>0</RoundsDead>
     </Hero5>
   </EnemyTeam>

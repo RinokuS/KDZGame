@@ -155,5 +155,14 @@
   <ItemGroup>
     <Resource Include="Pages\FAVPNG_shield-silhouette-shape_a0q4NBZc.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Pages\291738-Might_And_Magic-Heroes_of_Might_and_Magic-fantasy_art-angel-wings-armor-sword-knight-knights-women-Griffins-dragon.jpeg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Pages\622587-heroes-might-magic-strategy-fantasy-fighting-adventure-action-online-1hmm-warrior-fire-demon-angel.jpeg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Pages\86e56696cc8816e49fb8d595a6e34ed7.jpg" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -54,9 +54,9 @@ namespace KDZGame
             _round = round;
             gameStage = stage;
 
-            IsEveryoneAlive();
             WriteSaveGameXmlStream();
             InitializeInterface(stage);
+            IsEveryoneAlive();
         }
 
         static void WriteSaveGameXmlStream()
@@ -483,6 +483,7 @@ namespace KDZGame
                 else
                 {
                     allyAlive = true;
+                    break;
                 }
             }
             // Enemy
@@ -491,6 +492,7 @@ namespace KDZGame
                 if (GameSettings.enemyTeam[i].Alive)
                 {
                     enemyAlive = true;
+                    break;
                 }
             }
             // Changing our Page to win/defeat Pages

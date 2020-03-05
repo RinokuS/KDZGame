@@ -45,12 +45,17 @@ namespace KDZGame
                 try
                 {
                     ReadSaveGameXmlStream(out myTeam, out enemyTeam, out round, out stage);
-                    ((MainWindow)_mainWindow).Main.Navigate(new GamePage(_mainWindow, myTeam, enemyTeam, round, stage));
+                    IsEveryoneAlive(myTeam, enemyTeam, round, stage);
                 }
                 catch (Exception) // Не декомпозирую кэтч, ибо независимо от ошибки буду сообщать, что файл поврежден.
                 {
                     errorBox.Text = "Файл повреждён. Загрузить игру не удалось.";
                 }
+            }
+            else
+            {
+                errorBox.Text = "Не удалось загрузить сохранение. \r\n" +
+                    "Оно может быть удалено.";
             }
         }
 
@@ -229,6 +234,45 @@ namespace KDZGame
                     }
 
                 }
+            }
+        }
+
+        void IsEveryoneAlive(List<Hero> myTeam, List<Hero> enemyTeam, int round, string stage)
+        {
+            bool allyAlive = false;
+            bool enemyAlive = false;
+            // Ally
+            for (int i = 0; i < myTeam.Count; i++)
+            {
+                if (myTeam[i].Alive)
+                {
+                    allyAlive = true;
+                    break;
+                }
+            }
+            // Enemy
+            for (int i = 0; i < enemyTeam.Count; i++)
+            {
+                if (enemyTeam[i].Alive)
+                {
+                    enemyAlive = true;
+                    break;
+                }
+            }
+            // Changing our Page to win/defeat Pages
+            if (!allyAlive)
+            {
+                File.Delete(@"..\..\Save.xml");
+                ((MainWindow)_mainWindow).Main.Navigate(new DefeatPage(_mainWindow));
+            }
+            else if (!enemyAlive)
+            {
+                File.Delete(@"..\..\Save.xml");
+                ((MainWindow)_mainWindow).Main.Navigate(new WinPage(_mainWindow));
+            }
+            else
+            {
+                ((MainWindow)_mainWindow).Main.Navigate(new GamePage(_mainWindow, myTeam, enemyTeam, round, stage));
             }
         }
     }
