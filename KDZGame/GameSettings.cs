@@ -7,6 +7,9 @@ using System.Data;
 
 namespace KDZGame
 {
+    /// <summary>
+    /// Some static parameters
+    /// </summary>
     public static class GameSettings
     {
         public static DataTable myData = null;

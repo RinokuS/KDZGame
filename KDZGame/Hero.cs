@@ -13,6 +13,7 @@ namespace KDZGame
         public int Defence { get; set; }
         public int minDmg { get; set; }
         public int maxDmg { get; set; }
+        public int MaxHealth { get; set; }
         public int Health { get; set; }
         public int Speed { get; set; }
         public int Growth { get; set; }
@@ -46,10 +47,32 @@ namespace KDZGame
             Growth = grwth;
             AI_Value = AI_v;
             Gold = gold;
+
             Alive = true;
             RoundsDead = 0;
+            MaxHealth = Health;
         }
+        public Hero(string name, int atk, int dfc, int minD, int maxD, int maxHealth, int hp, int spd, int grwth, int AI_v, int gold, bool alive, int roundsDead)
+        {
+            Name = name;
+            Attack = atk;
+            Defence = dfc;
+            minDmg = minD;
+            maxDmg = maxD;
+            Health = hp;
+            Speed = spd;
+            Growth = grwth;
+            AI_Value = AI_v;
+            Gold = gold;
 
+            Alive = alive;
+            RoundsDead = roundsDead;
+            MaxHealth = maxHealth;
+        }
+        /// <summary>
+        /// Hero`s attack method 
+        /// </summary>
+        /// <param name="enemy">enemy`s hero</param>
         public void AttackAction(Hero enemy)
         {
             double atkPoints = Attack + 0.8 * Speed + 0.1 * Growth + 0.2 * AI_Value;

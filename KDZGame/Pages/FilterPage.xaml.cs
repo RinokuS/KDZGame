@@ -82,9 +82,10 @@ namespace KDZGame
         {
             for (int i = 0; i < 5; i++)
             {
+                string name = GameSettings.names[rnd.Next(GameSettings.names.Count)];
                 for (int j = 0; j < GameSettings.myData.Rows.Count; j++)
                 {
-                    if ((string)GameSettings.myData.Rows[j]["Unit_name"] == GameSettings.names[rnd.Next(GameSettings.names.Count)])
+                    if ((string)GameSettings.myData.Rows[j]["Unit_name"] == name)
                     {
                         object[] copyrow = GameSettings.myData.Rows[j].ItemArray;
 
@@ -96,7 +97,7 @@ namespace KDZGame
             }
 
             if (GameSettings.myTeam.Count == 5)
-                ((MainWindow)_mainWindow).Main.Navigate(new GamePage(_mainWindow, GameSettings.myTeam, GameSettings.enemyTeam, 1));
+                ((MainWindow)_mainWindow).Main.Navigate(new GamePage(_mainWindow, "Attack"));
         }
 
         /// <summary>
