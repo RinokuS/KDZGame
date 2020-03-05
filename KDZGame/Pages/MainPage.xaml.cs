@@ -88,6 +88,7 @@ namespace KDZGame
             stage = "Attack";
 
             int i = 0;
+            int j = 0;
             using (XmlReader reader = XmlReader.Create(@"..\..\Save.xml", settings))
             {
                 while (reader.Read())
@@ -110,7 +111,7 @@ namespace KDZGame
                         && reader.IsStartElement())
                         {
                             reader.Read();
-                            while (reader.Name != "EnemyTeam")
+                            while (reader.Name != "AllyTeam")
                             {
                                 if (reader.NodeType == XmlNodeType.Element // going through AllyTeam
                                 && reader.Name == "Hero" + (i + 1)
@@ -145,6 +146,8 @@ namespace KDZGame
                                             alive = reader.ReadElementContentAsString() == "True"?true:false;
                                         else if (reader.Name == "RoundsDead")
                                             roundsDead = reader.ReadElementContentAsInt();
+                                        if (++j > 50)
+                                            break;
                                     }
                                     if ((name == null) || (attack<1) || (defence<1) || (minDmg<1) || (maxDmg<1) || (maxHealth<1)
                                         || (maxHealth < health) || (speed<1) || (growth<1) || (ai_value<1)
@@ -166,7 +169,8 @@ namespace KDZGame
                                 }
                             }
                         }
-                        i = 0;                      
+                        i = 0;
+                        j = 0;
                         if (reader.NodeType == XmlNodeType.Element // going through EnemyTeam
                         && reader.Name == "EnemyTeam"
                         && reader.IsStartElement())
@@ -207,6 +211,8 @@ namespace KDZGame
                                             alive = reader.ReadElementContentAsString() == "True" ? true : false;
                                         else if (reader.Name == "RoundsDead")
                                             roundsDead = reader.ReadElementContentAsInt();
+                                        if (++j > 50)
+                                            break;
                                     }
                                     if ((name == null) || (attack < 1) || (defence < 1) || (minDmg < 1) || (maxDmg < 1) || (maxHealth < 1)
                                         || (maxHealth < health) || (speed < 1) || (growth < 1) || (ai_value < 1)

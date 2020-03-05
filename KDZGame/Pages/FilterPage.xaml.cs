@@ -107,32 +107,41 @@ namespace KDZGame
         /// <param name="e"></param>
         private void addHero(object sender, RoutedEventArgs e)
         {
-            DataRowView row = (heroData.SelectedItem as DataRowView) ?? (teamData.SelectedItem as DataRowView);
-            string selectedHero = row[0].ToString();
-
-            DataTable dt = ((DataView)teamData.ItemsSource).ToTable();
-
-            if (dt.Rows.Count >= 0 && dt.Rows.Count < 5)
+            try
             {
-                for (int i = 0; i < GameSettings.myData.Rows.Count; i++)
+                DataRowView row = (heroData.SelectedItem as DataRowView) ?? (teamData.SelectedItem as DataRowView);
+
+                string selectedHero = row[0].ToString();
+
+                DataTable dt = ((DataView)teamData.ItemsSource).ToTable();
+                CheckNullRows(ref dt);
+
+                if (dt.Rows.Count >= 0 && dt.Rows.Count < 5)
                 {
-                    if ((string)GameSettings.myData.Rows[i]["Unit_name"] == selectedHero)
+                    for (int i = 0; i < GameSettings.myData.Rows.Count; i++)
                     {
-                        object[] copyrow = GameSettings.myData.Rows[i].ItemArray;
-                        dt.Rows.Add(copyrow);
-                        GameSettings.myData.Rows.Remove(GameSettings.myData.Rows[i]);
-                        GameSettings.names.Remove(selectedHero);
-                   
-                        GameSettings.myTeam.Add(new Hero((string)copyrow[0], int.Parse((string)copyrow[1]), int.Parse((string)copyrow[2]), int.Parse((string)copyrow[3]), int.Parse((string)copyrow[4]),
-                            int.Parse((string)copyrow[5]), int.Parse((string)copyrow[6]), int.Parse((string)copyrow[7]), int.Parse((string)copyrow[8]), int.Parse((string)copyrow[9])));
-                        break;
+                        if ((string)GameSettings.myData.Rows[i]["Unit_name"] == selectedHero)
+                        {
+                            object[] copyrow = GameSettings.myData.Rows[i].ItemArray;
+                            dt.Rows.Add(copyrow);
+                            GameSettings.myData.Rows.Remove(GameSettings.myData.Rows[i]);
+                            GameSettings.names.Remove(selectedHero);
+
+                            GameSettings.myTeam.Add(new Hero((string)copyrow[0], int.Parse((string)copyrow[1]), int.Parse((string)copyrow[2]), int.Parse((string)copyrow[3]), int.Parse((string)copyrow[4]),
+                                int.Parse((string)copyrow[5]), int.Parse((string)copyrow[6]), int.Parse((string)copyrow[7]), int.Parse((string)copyrow[8]), int.Parse((string)copyrow[9])));
+                            break;
+                        }
                     }
                 }
-            }
 
-            teamData.ItemsSource = dt.DefaultView;
-            heroData.ItemsSource = GameSettings.myData.DefaultView;
-            UpdateData();
+                teamData.ItemsSource = dt.DefaultView;
+                heroData.ItemsSource = GameSettings.myData.DefaultView;
+                UpdateData();
+            }
+            catch (NullReferenceException)
+            {
+
+            }
         }
         /// <summary>
         /// Event for removing selected hero from your team
@@ -142,30 +151,44 @@ namespace KDZGame
         private void removeHero(object sender, RoutedEventArgs e)
         {
             DataRowView row = (heroData.SelectedItem as DataRowView) ?? (teamData.SelectedItem as DataRowView);
+            if (row == null)
+            {
+                throw new ArgumentException();
+            }
             string selectedHero = row[0].ToString();
 
             DataTable dt = ((DataView)teamData.ItemsSource).ToTable();
-            
+            CheckNullRows(ref dt);
+
+
             if (dt.Rows.Count > 0)
             {
                 for (int i = 0; i < dt.Rows.Count; i++)
                 {
-                    if ((string)dt.Rows[i]["Unit_name"] == selectedHero)
+                    try
                     {
-                        object[] copyrow = dt.Rows[i].ItemArray;
-                        GameSettings.myData.Rows.Add(copyrow);
-                        dt.Rows.Remove(dt.Rows[i]);
-                        GameSettings.names.Add(selectedHero);
-                        // Deleting Hero from our Team List
-                        for (int j = 0; j < GameSettings.myTeam.Count; j++)
+                        if ((string)dt.Rows[i]["Unit_name"] == selectedHero)
                         {
-                            if (GameSettings.myTeam[j].Name == selectedHero)
+                            object[] copyrow = dt.Rows[i].ItemArray;
+                            GameSettings.myData.Rows.Add(copyrow);
+                            dt.Rows.Remove(dt.Rows[i]);
+                            GameSettings.names.Add(selectedHero);
+                            // Deleting Hero from our Team List
+                            for (int j = 0; j < GameSettings.myTeam.Count; j++)
                             {
-                                GameSettings.myTeam.Remove(GameSettings.myTeam[j]);
-                                break;
+                                if (GameSettings.myTeam[j].Name == selectedHero)
+                                {
+                                    GameSettings.myTeam.Remove(GameSettings.myTeam[j]);
+                                    break;
+                                }
                             }
+                            break;
                         }
-                        break;
+                    }
+                    catch (InvalidCastException)
+                    {
+                        dt.Rows.Remove(dt.Rows[i]);
+                        i--;
                     }
                 }
             }
@@ -173,6 +196,18 @@ namespace KDZGame
             teamData.ItemsSource = dt.DefaultView;
             heroData.ItemsSource = GameSettings.myData.DefaultView;
             UpdateData();
+        }
+
+        void CheckNullRows(ref DataTable dt)
+        {
+            for (int i = 0; i < dt.Rows.Count; i++)
+            {
+                if (dt.Rows[i].IsNull(0))
+                {
+                    dt.Rows.Remove(dt.Rows[i]);
+                    i--;
+                }
+            }
         }
         /// <summary>
         /// Method for initialize data grid
@@ -321,6 +356,7 @@ namespace KDZGame
                 }
 
                 teamData.ItemsSource = dt.DefaultView;
+                teamData.Columns[0].IsReadOnly = true;
             }
             catch (System.IO.IOException)
             {
