@@ -307,6 +307,20 @@ namespace KDZGame
                     string firstLine = lines[0];
                     string[] headerLabels = firstLine.Split(';');
 
+                    if (headerLabels.Length != 10)
+                    {
+                        MessageBox.Show("Your CSV File is broken.", "Error!", MessageBoxButton.OK);
+                        return;
+                    }
+
+                    if (headerLabels[0] != "Unit_name" || headerLabels[1] != "Attack" || headerLabels[2] != "Defence" || headerLabels[3] != "Minimum Damage" ||
+                        headerLabels[4] != "Maximum Damage" || headerLabels[5] != "Health" || headerLabels[6] != "Speed" || headerLabels[7] != "Growth" ||
+                        headerLabels[8] != "AI_Value" || headerLabels[9] != "Gold")
+                    {
+                        MessageBox.Show("Your CSV File is broken.", "Error!", MessageBoxButton.OK);
+                        return;
+                    }
+
                     foreach (string header in headerLabels)
                     {
                         dt.Columns.Add(new DataColumn(header));
