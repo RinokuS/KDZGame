@@ -1,17 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using System.Data;
 
 namespace KDZGame
@@ -51,35 +41,103 @@ namespace KDZGame
 
         private void updateDataClick(object sender, RoutedEventArgs e)
         {
+            applyChangesBtn_Click(sender, e);
             UpdateData();
         }
 
         private void applyChangesBtn_Click(object sender, RoutedEventArgs e)
         {
             DataTable correntTable = ((DataView)heroData.ItemsSource).ToTable();
-
-            foreach (DataRow row in correntTable.Rows)
+            DataTable correntTeamTable = ((DataView)teamData.ItemsSource).ToTable();
+            DataRow cr;
+            
+            for (int i = 0; i < correntTable.Rows.Count; i++)
             {
-                for (int i = 0; i < GameSettings.myData.Rows.Count; i++)
+                for (int j = 0; j < correntTable.Rows.Count; j++)
                 {
-                    if (row["Unit_name"] == GameSettings.myData.Rows[i]["Unit_name"])
+                    if (i == j)
+                        continue;
+                    if (correntTable.Rows[i]["Unit_name"].ToString() == correntTable.Rows[j]["Unit_name"].ToString())
                     {
-                        GameSettings.myData.Rows[i]["Attack"] = row["Attack"];
-                        GameSettings.myData.Rows[i]["Defence"] = row["Defence"];
-                        GameSettings.myData.Rows[i]["Minimum Damage"] = row["Minimum Damage"];
-                        GameSettings.myData.Rows[i]["Maximum Damage"] = row["Maximum Damage"];
-                        GameSettings.myData.Rows[i]["Health"] = row["Health"];
-                        GameSettings.myData.Rows[i]["Speed"] = row["Speed"];
-                        GameSettings.myData.Rows[i]["Growth"] = row["Growth"];
-                        GameSettings.myData.Rows[i]["AI_Value"] = row["AI_Value"];
-                        GameSettings.myData.Rows[i]["Gold"] = row["Gold"];
+                        MessageBox.Show("You can`t have any heroes with coinciding names.", "Error!", MessageBoxButton.OK);
+                        correntTable.Rows[j]["Unit_name"] = "Unknown_hero_" + GameSettings.count++;
                     }
                 }
             }
+
+            for (int i = 0; i < correntTeamTable.Rows.Count; i++)
+            {
+                for (int j = 0; j < correntTable.Rows.Count; j++)
+                {
+                    if (correntTeamTable.Rows[i]["Unit_name"].ToString() == correntTable.Rows[j]["Unit_name"].ToString())
+                    {
+                        MessageBox.Show("You can`t have any heroes with coinciding names.", "Error!", MessageBoxButton.OK);
+                        correntTable.Rows[j]["Unit_name"] = "Unknown_hero_" + GameSettings.count++;
+                    }
+                }
+            }
+
+            for (int i = 0; i < GameSettings.myData.Rows.Count; i++)
+            {
+                cr = correntTable.Rows[i];
+
+                if (int.Parse(cr["Attack"].ToString()) < 1)
+                {
+                    correntTable.Rows[i]["Attack"] = 1;
+                }
+                if (int.Parse(cr["Defence"].ToString()) < 1)
+                    correntTable.Rows[i]["Defence"] = 1;
+                if (int.Parse(cr["Minimum Damage"].ToString()) < 1)
+                    correntTable.Rows[i]["Minimum Damage"] = 1;
+                if (int.Parse(cr["Maximum Damage"].ToString()) < 1)
+                    correntTable.Rows[i]["Maximum Damage"] = 1;
+                if (int.Parse(cr["Health"].ToString()) < 1)
+                    correntTable.Rows[i]["Health"] = 1;
+                if (int.Parse(cr["Speed"].ToString()) < 1)
+                    correntTable.Rows[i]["Speed"] = 1;
+                if (int.Parse(cr["Growth"].ToString()) < 1)
+                    correntTable.Rows[i]["Growth"] = 1;
+                if (int.Parse(cr["AI_Value"].ToString()) < 1)
+                    correntTable.Rows[i]["AI_Value"] = 1;
+                if (int.Parse(cr["Gold"].ToString()) < 0)
+                    correntTable.Rows[i]["Gold"] = 0;
+                if ((string)cr["Unit_name"] == "")
+                    correntTable.Rows[i]["Unit_name"] = "Unknown_hero_" + GameSettings.count++;
+                GameSettings.myData.Rows[i]["Attack"] = correntTable.Rows[i]["Attack"];
+                GameSettings.myData.Rows[i]["Defence"] = correntTable.Rows[i]["Defence"];
+                GameSettings.myData.Rows[i]["Minimum Damage"] = correntTable.Rows[i]["Minimum Damage"];
+                GameSettings.myData.Rows[i]["Maximum Damage"] = correntTable.Rows[i]["Maximum Damage"];
+                GameSettings.myData.Rows[i]["Health"] = correntTable.Rows[i]["Health"];
+                GameSettings.myData.Rows[i]["Speed"] = correntTable.Rows[i]["Speed"];
+                GameSettings.myData.Rows[i]["Growth"] = correntTable.Rows[i]["Growth"];
+                GameSettings.myData.Rows[i]["AI_Value"] = correntTable.Rows[i]["AI_Value"];
+                GameSettings.myData.Rows[i]["Gold"] = correntTable.Rows[i]["Gold"];
+                GameSettings.myData.Rows[i]["Unit_name"] = correntTable.Rows[i]["Unit_name"];
+            }
+
+            //foreach (DataRow row in correntTable.Rows)
+            //{
+            //    for (int i = 0; i < GameSettings.myData.Rows.Count; i++)
+            //    {
+            //        if (row["Unit_name"] == GameSettings.myData.Rows[i]["Unit_name"])
+            //        {
+            //            GameSettings.myData.Rows[i]["Attack"] = row["Attack"];
+            //            GameSettings.myData.Rows[i]["Defence"] = row["Defence"];
+            //            GameSettings.myData.Rows[i]["Minimum Damage"] = row["Minimum Damage"];
+            //            GameSettings.myData.Rows[i]["Maximum Damage"] = row["Maximum Damage"];
+            //            GameSettings.myData.Rows[i]["Health"] = row["Health"];
+            //            GameSettings.myData.Rows[i]["Speed"] = row["Speed"];
+            //            GameSettings.myData.Rows[i]["Growth"] = row["Growth"];
+            //            GameSettings.myData.Rows[i]["AI_Value"] = row["AI_Value"];
+            //            GameSettings.myData.Rows[i]["Gold"] = row["Gold"];
+            //        }
+            //    }
+            //}
             UpdateData();
         }
         private void startGame_Click(object sender, RoutedEventArgs e)
         {
+            applyChangesBtn_Click(sender, e);
             for (int i = 0; i < 5; i++)
             {
                 string name = GameSettings.names[rnd.Next(GameSettings.names.Count)];
@@ -98,6 +156,10 @@ namespace KDZGame
 
             if (GameSettings.myTeam.Count == 5)
                 ((MainWindow)_mainWindow).Main.Navigate(new GamePage(_mainWindow, "Attack"));
+            else
+            {
+                MessageBox.Show("You must have 5 heroes to start game!", "Error!", MessageBoxButton.OK);
+            }
         }
 
         /// <summary>
@@ -109,6 +171,7 @@ namespace KDZGame
         {
             try
             {
+                applyChangesBtn_Click(sender, e);
                 DataRowView row = (heroData.SelectedItem as DataRowView) ?? (teamData.SelectedItem as DataRowView);
 
                 string selectedHero = row[0].ToString();
@@ -120,22 +183,38 @@ namespace KDZGame
                 {
                     for (int i = 0; i < GameSettings.myData.Rows.Count; i++)
                     {
-                        if ((string)GameSettings.myData.Rows[i]["Unit_name"] == selectedHero)
+                        try
                         {
-                            object[] copyrow = GameSettings.myData.Rows[i].ItemArray;
-                            dt.Rows.Add(copyrow);
-                            GameSettings.myData.Rows.Remove(GameSettings.myData.Rows[i]);
-                            GameSettings.names.Remove(selectedHero);
+                            if ((string)GameSettings.myData.Rows[i]["Unit_name"] == selectedHero)
+                            {
+                                object[] copyrow = GameSettings.myData.Rows[i].ItemArray;
+                                dt.Rows.Add(copyrow);
+                                GameSettings.myData.Rows.Remove(GameSettings.myData.Rows[i]);
+                                GameSettings.names.Remove(selectedHero);
 
-                            GameSettings.myTeam.Add(new Hero((string)copyrow[0], int.Parse((string)copyrow[1]), int.Parse((string)copyrow[2]), int.Parse((string)copyrow[3]), int.Parse((string)copyrow[4]),
-                                int.Parse((string)copyrow[5]), int.Parse((string)copyrow[6]), int.Parse((string)copyrow[7]), int.Parse((string)copyrow[8]), int.Parse((string)copyrow[9])));
-                            break;
+                                GameSettings.myTeam.Add(new Hero((string)copyrow[0], int.Parse((string)copyrow[1]), int.Parse((string)copyrow[2]), int.Parse((string)copyrow[3]), int.Parse((string)copyrow[4]),
+                                    int.Parse((string)copyrow[5]), int.Parse((string)copyrow[6]), int.Parse((string)copyrow[7]), int.Parse((string)copyrow[8]), int.Parse((string)copyrow[9])));
+                                break;
+                            }
+                        }
+                        catch (InvalidCastException)
+                        {
+                            GameSettings.myData.Rows.Remove(GameSettings.myData.Rows[i]);
+                            i--;
                         }
                     }
+                }
+                else
+                {
+                    MessageBox.Show("You must have no more than 5 heroes", "Error!", MessageBoxButton.OK);
                 }
 
                 teamData.ItemsSource = dt.DefaultView;
                 heroData.ItemsSource = GameSettings.myData.DefaultView;
+                for (int i = 0; i < teamData.Columns.Count; i++)
+                {
+                    teamData.Columns[i].IsReadOnly = true;
+                }
                 UpdateData();
             }
             catch (NullReferenceException)
@@ -150,54 +229,69 @@ namespace KDZGame
         /// <param name="e"></param>
         private void removeHero(object sender, RoutedEventArgs e)
         {
-            DataRowView row = (heroData.SelectedItem as DataRowView) ?? (teamData.SelectedItem as DataRowView);
-            if (row == null)
+            applyChangesBtn_Click(sender, e);
+            try
             {
-                throw new ArgumentException();
-            }
-            string selectedHero = row[0].ToString();
+                DataRowView row = (teamData.SelectedItem as DataRowView) ?? (heroData.SelectedItem as DataRowView);              
+                string selectedHero = row[0].ToString();
 
-            DataTable dt = ((DataView)teamData.ItemsSource).ToTable();
-            CheckNullRows(ref dt);
+                DataTable dt = ((DataView)teamData.ItemsSource).ToTable();
+                CheckNullRows(ref dt);
 
 
-            if (dt.Rows.Count > 0)
-            {
-                for (int i = 0; i < dt.Rows.Count; i++)
+                if (dt.Rows.Count > 0)
                 {
-                    try
+                    for (int i = 0; i < dt.Rows.Count; i++)
                     {
-                        if ((string)dt.Rows[i]["Unit_name"] == selectedHero)
+                        try
                         {
-                            object[] copyrow = dt.Rows[i].ItemArray;
-                            GameSettings.myData.Rows.Add(copyrow);
-                            dt.Rows.Remove(dt.Rows[i]);
-                            GameSettings.names.Add(selectedHero);
-                            // Deleting Hero from our Team List
-                            for (int j = 0; j < GameSettings.myTeam.Count; j++)
+                            if ((string)dt.Rows[i]["Unit_name"] == selectedHero)
                             {
-                                if (GameSettings.myTeam[j].Name == selectedHero)
+                                object[] copyrow = dt.Rows[i].ItemArray;
+                                GameSettings.myData.Rows.Add(copyrow);
+                                dt.Rows.Remove(dt.Rows[i]);
+                                GameSettings.names.Add(selectedHero);
+                                // Deleting Hero from our Team List
+                                for (int j = 0; j < GameSettings.myTeam.Count; j++)
                                 {
-                                    GameSettings.myTeam.Remove(GameSettings.myTeam[j]);
-                                    break;
+                                    if (GameSettings.myTeam[j].Name == selectedHero)
+                                    {
+                                        GameSettings.myTeam.Remove(GameSettings.myTeam[j]);
+                                        break;
+                                    }
                                 }
+                                break;
                             }
-                            break;
+                        }
+                        catch (InvalidCastException)
+                        {
+                            dt.Rows.Remove(dt.Rows[i]);
+                            i--;
                         }
                     }
-                    catch (InvalidCastException)
-                    {
-                        dt.Rows.Remove(dt.Rows[i]);
-                        i--;
-                    }
                 }
+                else
+                {
+                    MessageBox.Show("You must have at least one hero to remove!", "Error!", MessageBoxButton.OK);
+                }
+
+                teamData.ItemsSource = dt.DefaultView;
+                heroData.ItemsSource = GameSettings.myData.DefaultView;
+                for (int i = 0; i < teamData.Columns.Count; i++)
+                {
+                    teamData.Columns[i].IsReadOnly = true;
+                }
+                UpdateData();
             }
+            catch (NullReferenceException)
+            {
 
-            teamData.ItemsSource = dt.DefaultView;
-            heroData.ItemsSource = GameSettings.myData.DefaultView;
-            UpdateData();
+            }
         }
-
+        /// <summary>
+        /// Trying to fix bug with Null Rows
+        /// </summary>
+        /// <param name="dt"></param>
         void CheckNullRows(ref DataTable dt)
         {
             for (int i = 0; i < dt.Rows.Count; i++)
@@ -256,7 +350,6 @@ namespace KDZGame
                     heroData.ItemsSource = dt.DefaultView;
                     GameSettings.myData = dt;
                     GameSettings.names = names;
-                    heroData.Columns[0].IsReadOnly = true;
                 }
             }
             catch (System.IO.IOException)
@@ -323,7 +416,6 @@ namespace KDZGame
                 if (dt.Rows.Count > 0)
                 {
                     heroData.ItemsSource = dt.DefaultView;
-                    heroData.Columns[0].IsReadOnly = true;
                 }
             }
             catch (System.IO.IOException)
@@ -356,7 +448,10 @@ namespace KDZGame
                 }
 
                 teamData.ItemsSource = dt.DefaultView;
-                teamData.Columns[0].IsReadOnly = true;
+                for (int i = 0; i < teamData.Columns.Count; i++)
+                {
+                    teamData.Columns[i].IsReadOnly = true;
+                }
             }
             catch (System.IO.IOException)
             {
@@ -396,7 +491,6 @@ namespace KDZGame
                 else
                 {
                     heroData.ItemsSource = GameSettings.myData.DefaultView;
-                    heroData.Columns[0].IsReadOnly = true;
                 }
             }
             else

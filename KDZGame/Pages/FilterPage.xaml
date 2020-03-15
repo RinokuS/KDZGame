@@ -10,7 +10,10 @@
 
     <Viewbox HorizontalAlignment="Left" VerticalAlignment="Top" MinWidth="800" MinHeight="450">
         <Grid MinWidth="1920" MinHeight="1010">
-            <Image HorizontalAlignment="Center" VerticalAlignment="Top" Source="v7ZYfy.jpg" Margin="0,0,0,-70" MinWidth="1920" MinHeight="1080"/>
+            <Grid.Background>
+                <ImageBrush ImageSource="v7ZYfy.jpg" Stretch="UniformToFill"/>
+            </Grid.Background>
+            
             <StackPanel HorizontalAlignment="Center" VerticalAlignment="Bottom" Height="868" Width="1910" Margin="0,0,10,10">
                 <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top" Orientation="Horizontal" Width="900" Margin="20,0,0,0">
                     <Label x:Name="attackLabel" Content="Attack" Width="150" Background="#C0C0C0" Opacity="0.3" FontFamily="Viner Hand ITC" Margin="0" Height="70" FontSize="36"/>

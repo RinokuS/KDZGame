@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using System.Data;
 
 namespace KDZGame
@@ -12,6 +8,7 @@ namespace KDZGame
     /// </summary>
     public static class GameSettings
     {
+        public static int count = 1;
         public static DataTable myData = null;
         public static List<string> names = new List<string>();
 

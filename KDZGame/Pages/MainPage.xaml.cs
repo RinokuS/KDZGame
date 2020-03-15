@@ -1,17 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using System.IO;
 using System.Xml;
 
@@ -49,13 +39,12 @@ namespace KDZGame
                 }
                 catch (Exception) // Не декомпозирую кэтч, ибо независимо от ошибки буду сообщать, что файл поврежден.
                 {
-                    errorBox.Text = "Файл повреждён. Загрузить игру не удалось.";
+                    MessageBox.Show("Save-file is broken. Can`t load the game.", "Error!", MessageBoxButton.OK);
                 }
             }
             else
             {
-                errorBox.Text = "Не удалось загрузить сохранение. \r\n" +
-                    "Оно может быть удалено.";
+                MessageBox.Show("Your save-file may be deleted.", "Error!", MessageBoxButton.OK);
             }
         }
 
@@ -117,6 +106,7 @@ namespace KDZGame
                                 && reader.Name == "Hero" + (i + 1)
                                 && reader.IsStartElement())
                                 {
+                                    j = 0;
                                     reader.Read();
                                     while (reader.Name != "Hero" + (i + 1) && reader.Name != "EnemyTeam")
                                     {
@@ -153,7 +143,7 @@ namespace KDZGame
                                         || (maxHealth < health) || (speed<1) || (growth<1) || (ai_value<1)
                                         || (gold<1) || (roundsDead < 0))
                                     {
-                                        throw new ArgumentException("Файл повреждён!");
+                                        throw new ArgumentException("File is broken!");
                                     }
                                     else
                                     {
@@ -162,6 +152,20 @@ namespace KDZGame
                                     }
                                     i++;
                                     reader.Read();
+
+                                    name = null;
+                                    attack = -1;
+                                    defence = -1;
+                                    minDmg = -1;
+                                    maxDmg = -1;
+                                    maxHealth = -1;
+                                    health = -1;
+                                    speed = -1;
+                                    growth = -1;
+                                    ai_value = -1;
+                                    gold = -1;
+                                    alive = false;
+                                    roundsDead = -1;
                                 }
                                 else
                                 {
@@ -169,6 +173,7 @@ namespace KDZGame
                                 }
                             }
                         }
+                        reader.Read();
                         i = 0;
                         j = 0;
                         if (reader.NodeType == XmlNodeType.Element // going through EnemyTeam
@@ -182,6 +187,7 @@ namespace KDZGame
                                 && reader.Name == "Hero" + (i + 1)
                                 && reader.IsStartElement())
                                 {
+                                    j = 0;
                                     reader.Read();
                                     while (reader.Name != "Hero" + (i + 1) && reader.Name != "EnemyTeam")
                                     {
@@ -218,7 +224,7 @@ namespace KDZGame
                                         || (maxHealth < health) || (speed < 1) || (growth < 1) || (ai_value < 1)
                                         || (gold < 1) || (roundsDead < 0))
                                     {
-                                        throw new ArgumentException("Файл повреждён!");
+                                        throw new ArgumentException("File is broken!");
                                     }
                                     else
                                     {
@@ -227,24 +233,38 @@ namespace KDZGame
                                     }
                                     i++;
                                     reader.Read();
+                                    name = null;
+                                    attack = -1;
+                                    defence = -1;
+                                    minDmg = -1;
+                                    maxDmg = -1;
+                                    maxHealth = -1;
+                                    health = -1;
+                                    speed = -1;
+                                    growth = -1;
+                                    ai_value = -1;
+                                    gold = -1;
+                                    alive = false;
+                                    roundsDead = -1;
                                 }
                                 else
                                 {
                                     reader.Read();
                                 }
                             }
-
-
-
                         }
                     }
-
                 }
             }
         }
 
         void IsEveryoneAlive(List<Hero> myTeam, List<Hero> enemyTeam, int round, string stage)
         {
+            if (myTeam.Count < 5 || enemyTeam.Count < 5 || myTeam.Count > 5 || enemyTeam.Count > 5)
+            {
+                throw new ArgumentException("Неверное кол-во игроков");
+            }
+
             bool allyAlive = false;
             bool enemyAlive = false;
             // Ally

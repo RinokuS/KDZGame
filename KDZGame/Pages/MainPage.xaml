@@ -15,7 +15,6 @@
                 <Button x:Name="startBtn" Content="New Game" HorizontalAlignment="Left" VerticalAlignment="Center" MinWidth="200" MinHeight="120" Margin="0" FontFamily="Viner Hand ITC" FontSize="36" Background="#C0C0C0" Click="startBtnClick"/>
                 <Button x:Name="resumeBtn" Content="Load Save" HorizontalAlignment="Left" VerticalAlignment="Center" MinWidth="200" MinHeight="120" Margin="0,20,0,0" FontFamily="Viner Hand ITC" FontSize="36" Background="#C0C0C0" Click="resumeBtn_Click"/>
             </StackPanel>
-            <TextBox x:Name="errorBox" HorizontalAlignment="Center" Height="200" TextWrapping="Wrap" VerticalAlignment="Top" Width="500" Background="Transparent" FontSize="36" FontFamily="Viner Hand ITC" Foreground="#B22222" Margin="0,50,0,0"/>
             <Frame x:Name="Main" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         </Grid>
     </Viewbox>

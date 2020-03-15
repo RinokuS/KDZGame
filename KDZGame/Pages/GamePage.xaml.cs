@@ -38,6 +38,7 @@ namespace KDZGame
             _round = 1;
             gameStage = stage;
 
+            roundBox.Text = "Round: " + _round;
             WriteSaveGameXmlStream();
             InitializeInterface(stage);
         }
@@ -54,6 +55,7 @@ namespace KDZGame
             _round = round;
             gameStage = stage;
 
+            roundBox.Text = "Round: " + _round;
             WriteSaveGameXmlStream();
             InitializeInterface(stage);
             IsEveryoneAlive();
@@ -77,7 +79,7 @@ namespace KDZGame
                 writer.WriteElementString("Round", _round.ToString());
                 writer.WriteElementString("Stage", gameStage);
                 writer.WriteStartElement("AllyTeam");   // <AllyTeam>
-
+              
                 writer.WriteStartElement("Hero1");   // </Hero1>
 
                 writer.WriteElementString("Name", GameSettings.myTeam[0].Name);
@@ -407,6 +409,8 @@ namespace KDZGame
                 }
             }
 
+            _round++;
+            roundBox.Text = "Round: " + _round;
             gameStage = "Attack";
             WriteSaveGameXmlStream();
         }

@@ -11,6 +11,7 @@
     <Viewbox HorizontalAlignment="Left" VerticalAlignment="Top">
         <Grid>
             <Image Source="thumb-1920-169127.jpg" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,0,0,-70"/>
+            <TextBox x:Name="roundBox" HorizontalAlignment="Right" Height="70" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="160" Background="#C0C0C0" FontSize="24" Opacity="0.5" TextAlignment="Center"/>
             <StackPanel x:Name="team" HorizontalAlignment="Center" VerticalAlignment="Bottom">
                 <StackPanel x:Name="names" HorizontalAlignment="Left" VerticalAlignment="Bottom" Orientation="Horizontal" Margin="0,0,0,10">
                     <Label x:Name="Hero1" Content="Label" Width="250" Height="60" Background="#C0C0C0" Margin="0" FontFamily="Viner Hand ITC" FontSize="24"/>
@@ -110,7 +111,6 @@
                 </StackPanel>
             </StackPanel>
             <TextBox x:Name="gameInfoBox" HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Center" Width="600" Background="Transparent" Foreground="#E0FFFF" FontSize="36" TextAlignment="Center"/>
-
         </Grid>
     </Viewbox>
 </Page>
