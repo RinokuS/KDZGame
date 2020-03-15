@@ -81,25 +81,23 @@ namespace KDZGame
             {
                 cr = correntTable.Rows[i];
 
-                if (int.Parse(cr["Attack"].ToString()) < 1)
-                {
-                    correntTable.Rows[i]["Attack"] = 1;
-                }
-                if (int.Parse(cr["Defence"].ToString()) < 1)
+                if ((cr["Attack"].ToString().Length > int.MaxValue.ToString().Length) || int.Parse(cr["Attack"].ToString()) < 1)                
+                    correntTable.Rows[i]["Attack"] = 1;               
+                if ((cr["Defence"].ToString().Length > int.MaxValue.ToString().Length) || int.Parse(cr["Defence"].ToString()) < 1)
                     correntTable.Rows[i]["Defence"] = 1;
-                if (int.Parse(cr["Minimum Damage"].ToString()) < 1)
+                if ((cr["Minimum Damage"].ToString().Length > int.MaxValue.ToString().Length) || int.Parse(cr["Minimum Damage"].ToString()) < 1)
                     correntTable.Rows[i]["Minimum Damage"] = 1;
-                if (int.Parse(cr["Maximum Damage"].ToString()) < 1)
+                if ((cr["Maximum Damage"].ToString().Length > int.MaxValue.ToString().Length) || int.Parse(cr["Maximum Damage"].ToString()) < 1)
                     correntTable.Rows[i]["Maximum Damage"] = 1;
-                if (int.Parse(cr["Health"].ToString()) < 1)
+                if ((cr["Health"].ToString().Length > int.MaxValue.ToString().Length) || int.Parse(cr["Health"].ToString()) < 1)
                     correntTable.Rows[i]["Health"] = 1;
-                if (int.Parse(cr["Speed"].ToString()) < 1)
+                if ((cr["Speed"].ToString().Length > int.MaxValue.ToString().Length) || int.Parse(cr["Speed"].ToString()) < 1)
                     correntTable.Rows[i]["Speed"] = 1;
-                if (int.Parse(cr["Growth"].ToString()) < 1)
+                if ((cr["Growth"].ToString().Length > int.MaxValue.ToString().Length) || int.Parse(cr["Growth"].ToString()) < 1)
                     correntTable.Rows[i]["Growth"] = 1;
-                if (int.Parse(cr["AI_Value"].ToString()) < 1)
+                if ((cr["AI_Value"].ToString().Length > int.MaxValue.ToString().Length) || int.Parse(cr["AI_Value"].ToString()) < 1)
                     correntTable.Rows[i]["AI_Value"] = 1;
-                if (int.Parse(cr["Gold"].ToString()) < 0)
+                if ((cr["Gold"].ToString().Length > int.MaxValue.ToString().Length) || int.Parse(cr["Gold"].ToString()) < 0)
                     correntTable.Rows[i]["Gold"] = 0;
                 if ((string)cr["Unit_name"] == "")
                     correntTable.Rows[i]["Unit_name"] = "Unknown_hero_" + GameSettings.count++;
