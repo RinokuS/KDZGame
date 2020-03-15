@@ -14,5 +14,7 @@ namespace KDZGame
 
         public static List<Hero> myTeam = new List<Hero>();
         public static List<Hero> enemyTeam = new List<Hero>();
+
+        public static DataTable oneMoreData = null;
     }
 }

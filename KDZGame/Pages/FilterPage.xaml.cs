@@ -12,6 +12,7 @@ namespace KDZGame
     public partial class FilterPage : Page
     {
         static Random rnd = new Random();
+        string[] lines = System.IO.File.ReadAllLines(@"..\..\HM3.csv");
 
         readonly Window _mainWindow;
         public FilterPage(Window mainWindow)
@@ -50,7 +51,7 @@ namespace KDZGame
             DataTable correntTable = ((DataView)heroData.ItemsSource).ToTable();
             DataTable correntTeamTable = ((DataView)teamData.ItemsSource).ToTable();
             DataRow cr;
-            
+            // Проверяем совпадения имен в основном DataGrid
             for (int i = 0; i < correntTable.Rows.Count; i++)
             {
                 for (int j = 0; j < correntTable.Rows.Count; j++)
@@ -60,11 +61,11 @@ namespace KDZGame
                     if (correntTable.Rows[i]["Unit_name"].ToString() == correntTable.Rows[j]["Unit_name"].ToString())
                     {
                         MessageBox.Show("You can`t have any heroes with coinciding names.", "Error!", MessageBoxButton.OK);
-                        correntTable.Rows[j]["Unit_name"] = "Unknown_hero_" + GameSettings.count++;
+                        correntTable.Rows[j]["Unit_name"] = GameSettings.oneMoreData.Rows[j]["Unit_name"]; // если есть совпадение - меняем имя
                     }
                 }
             }
-
+            // Проверяем совпадения имен в основном DataGrid и имен в DataGrid для выбранных игроков
             for (int i = 0; i < correntTeamTable.Rows.Count; i++)
             {
                 for (int j = 0; j < correntTable.Rows.Count; j++)
@@ -72,35 +73,37 @@ namespace KDZGame
                     if (correntTeamTable.Rows[i]["Unit_name"].ToString() == correntTable.Rows[j]["Unit_name"].ToString())
                     {
                         MessageBox.Show("You can`t have any heroes with coinciding names.", "Error!", MessageBoxButton.OK);
-                        correntTable.Rows[j]["Unit_name"] = "Unknown_hero_" + GameSettings.count++;
+                        correntTable.Rows[j]["Unit_name"] = GameSettings.oneMoreData.Rows[j]["Unit_name"]; // если есть совпадение - меняем имя
                     }
                 }
             }
 
             for (int i = 0; i < GameSettings.myData.Rows.Count; i++)
             {
-                cr = correntTable.Rows[i];
+                cr = correntTable.Rows[i]; // строку в отдельную переменную, просто чтобы писать 2 символа вместо 20
 
+                // проверяем каждый параметр так, как нам нужно. Не забываем проверить длину строки у int значений, чтобы не вылетел Overflow
                 if ((cr["Attack"].ToString().Length > int.MaxValue.ToString().Length) || int.Parse(cr["Attack"].ToString()) < 1)                
-                    correntTable.Rows[i]["Attack"] = 1;               
+                    correntTable.Rows[i]["Attack"] = GameSettings.oneMoreData.Rows[i]["Attack"];             
                 if ((cr["Defence"].ToString().Length > int.MaxValue.ToString().Length) || int.Parse(cr["Defence"].ToString()) < 1)
-                    correntTable.Rows[i]["Defence"] = 1;
+                    correntTable.Rows[i]["Defence"] = GameSettings.oneMoreData.Rows[i]["Defence"];
                 if ((cr["Minimum Damage"].ToString().Length > int.MaxValue.ToString().Length) || int.Parse(cr["Minimum Damage"].ToString()) < 1)
-                    correntTable.Rows[i]["Minimum Damage"] = 1;
+                    correntTable.Rows[i]["Minimum Damage"] = GameSettings.oneMoreData.Rows[i]["Minimum Damage"];
                 if ((cr["Maximum Damage"].ToString().Length > int.MaxValue.ToString().Length) || int.Parse(cr["Maximum Damage"].ToString()) < 1)
-                    correntTable.Rows[i]["Maximum Damage"] = 1;
+                    correntTable.Rows[i]["Maximum Damage"] = GameSettings.oneMoreData.Rows[i]["Maximum Damage"];
                 if ((cr["Health"].ToString().Length > int.MaxValue.ToString().Length) || int.Parse(cr["Health"].ToString()) < 1)
-                    correntTable.Rows[i]["Health"] = 1;
+                    correntTable.Rows[i]["Health"] = GameSettings.oneMoreData.Rows[i]["Health"];
                 if ((cr["Speed"].ToString().Length > int.MaxValue.ToString().Length) || int.Parse(cr["Speed"].ToString()) < 1)
-                    correntTable.Rows[i]["Speed"] = 1;
+                    correntTable.Rows[i]["Speed"] = GameSettings.oneMoreData.Rows[i]["Speed"];
                 if ((cr["Growth"].ToString().Length > int.MaxValue.ToString().Length) || int.Parse(cr["Growth"].ToString()) < 1)
-                    correntTable.Rows[i]["Growth"] = 1;
+                    correntTable.Rows[i]["Growth"] = GameSettings.oneMoreData.Rows[i]["Growth"];
                 if ((cr["AI_Value"].ToString().Length > int.MaxValue.ToString().Length) || int.Parse(cr["AI_Value"].ToString()) < 1)
-                    correntTable.Rows[i]["AI_Value"] = 1;
+                    correntTable.Rows[i]["AI_Value"] = GameSettings.oneMoreData.Rows[i]["AI_Value"];
                 if ((cr["Gold"].ToString().Length > int.MaxValue.ToString().Length) || int.Parse(cr["Gold"].ToString()) < 0)
-                    correntTable.Rows[i]["Gold"] = 0;
+                    correntTable.Rows[i]["Gold"] = GameSettings.oneMoreData.Rows[i]["Gold"];
                 if ((string)cr["Unit_name"] == "")
-                    correntTable.Rows[i]["Unit_name"] = "Unknown_hero_" + GameSettings.count++;
+                    correntTable.Rows[i]["Unit_name"] = GameSettings.oneMoreData.Rows[i]["Unit_name"]; ;
+                // сохраняем данные в статик таблицу (на самом деле юзлесс так как correntTable с статик таблицей уже как-то связались по ссылке (ненавижу шарпу))
                 GameSettings.myData.Rows[i]["Attack"] = correntTable.Rows[i]["Attack"];
                 GameSettings.myData.Rows[i]["Defence"] = correntTable.Rows[i]["Defence"];
                 GameSettings.myData.Rows[i]["Minimum Damage"] = correntTable.Rows[i]["Minimum Damage"];
@@ -113,25 +116,8 @@ namespace KDZGame
                 GameSettings.myData.Rows[i]["Unit_name"] = correntTable.Rows[i]["Unit_name"];
             }
 
-            //foreach (DataRow row in correntTable.Rows)
-            //{
-            //    for (int i = 0; i < GameSettings.myData.Rows.Count; i++)
-            //    {
-            //        if (row["Unit_name"] == GameSettings.myData.Rows[i]["Unit_name"])
-            //        {
-            //            GameSettings.myData.Rows[i]["Attack"] = row["Attack"];
-            //            GameSettings.myData.Rows[i]["Defence"] = row["Defence"];
-            //            GameSettings.myData.Rows[i]["Minimum Damage"] = row["Minimum Damage"];
-            //            GameSettings.myData.Rows[i]["Maximum Damage"] = row["Maximum Damage"];
-            //            GameSettings.myData.Rows[i]["Health"] = row["Health"];
-            //            GameSettings.myData.Rows[i]["Speed"] = row["Speed"];
-            //            GameSettings.myData.Rows[i]["Growth"] = row["Growth"];
-            //            GameSettings.myData.Rows[i]["AI_Value"] = row["AI_Value"];
-            //            GameSettings.myData.Rows[i]["Gold"] = row["Gold"];
-            //        }
-            //    }
-            //}
             UpdateData();
+            ReferenceDelete();
         }
         private void startGame_Click(object sender, RoutedEventArgs e)
         {
@@ -214,6 +200,7 @@ namespace KDZGame
                     teamData.Columns[i].IsReadOnly = true;
                 }
                 UpdateData();
+                ReferenceDelete();
             }
             catch (NullReferenceException)
             {
@@ -280,6 +267,7 @@ namespace KDZGame
                     teamData.Columns[i].IsReadOnly = true;
                 }
                 UpdateData();
+                ReferenceDelete();
             }
             catch (NullReferenceException)
             {
@@ -309,7 +297,6 @@ namespace KDZGame
             DataTable dt = new DataTable();
             try
             {
-                string[] lines = System.IO.File.ReadAllLines(@"..\..\HM3.csv");
 
                 List<string> names = new List<string>();
 
@@ -349,6 +336,7 @@ namespace KDZGame
                     GameSettings.myData = dt;
                     GameSettings.names = names;
                 }
+                ReferenceDelete();
             }
             catch (System.IO.IOException)
             {
@@ -366,7 +354,6 @@ namespace KDZGame
             DataTable dt = new DataTable();
             try
             {
-                string[] lines = System.IO.File.ReadAllLines(@"..\..\HM3.csv");
 
                 if (lines.Length > 0)
                 {
@@ -429,8 +416,7 @@ namespace KDZGame
             DataTable dt = new DataTable();
 
             try
-            {
-                string[] lines = System.IO.File.ReadAllLines(@"..\..\HM3.csv");
+            {                
 
                 if (lines.Length > 0)
                 {
@@ -514,6 +500,35 @@ namespace KDZGame
                 applyChangesBtn.IsEnabled = true;
                 applyChangesBtn.Visibility = Visibility.Visible;
             }
+        }
+
+        void ReferenceDelete()
+        {
+            DataTable dt = new DataTable();
+
+            string firstLine = lines[0];
+            string[] headerLabels = firstLine.Split(';');
+
+            foreach (string header in headerLabels)
+            {
+                dt.Columns.Add(new DataColumn(header));
+            }
+
+            for (int i = 0; i < GameSettings.myData.Rows.Count; i++)
+            {
+                try
+                {
+                    object[] copyrow = GameSettings.myData.Rows[i].ItemArray;
+                    dt.Rows.Add(copyrow);
+                }
+                catch (InvalidCastException)
+                {
+                    GameSettings.myData.Rows.Remove(GameSettings.myData.Rows[i]);
+                    i--;
+                }
+            }
+
+            GameSettings.oneMoreData = dt;
         }
     }
 }
