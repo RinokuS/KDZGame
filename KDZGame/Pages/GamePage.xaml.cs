@@ -26,7 +26,6 @@ namespace KDZGame
         static Random rnd = new Random();
 
         static int _round;
-        static bool _isGaming;
         static string gameStage;
 
         public GamePage(Window mainWindow, string stage)
@@ -34,7 +33,6 @@ namespace KDZGame
             InitializeComponent();
             _mainWindow = mainWindow;
 
-            _isGaming = true;
             _round = 1;
             gameStage = stage;
 
@@ -51,7 +49,6 @@ namespace KDZGame
             GameSettings.myTeam = myTeam;
             GameSettings.enemyTeam = enemyTeam;
 
-            _isGaming = true;
             _round = round;
             gameStage = stage;
 

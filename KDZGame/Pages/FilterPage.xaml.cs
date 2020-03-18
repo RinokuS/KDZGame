@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using System.Data;
+using System.IO;
 
 namespace KDZGame
 {
@@ -12,7 +13,8 @@ namespace KDZGame
     public partial class FilterPage : Page
     {
         static Random rnd = new Random();
-        string[] lines = System.IO.File.ReadAllLines(@"..\..\HM3.csv");
+
+        string[] lines;
 
         readonly Window _mainWindow;
         public FilterPage(Window mainWindow)
@@ -25,6 +27,19 @@ namespace KDZGame
 
             applyChangesBtn.IsEnabled = false;
             applyChangesBtn.Visibility = Visibility.Hidden;
+
+            startGame.IsEnabled = false;
+            startGame.Visibility = Visibility.Hidden;
+
+            try
+            {
+                lines = File.ReadAllLines(@"..\..\HM3.csv");
+            }
+            catch (IOException)
+            {
+                MessageBox.Show("Can't find CSV File.", "Error!", MessageBoxButton.OK);
+                Environment.Exit(0);
+            }
         }
 
         private void generateDataClick(object sender, RoutedEventArgs e)
@@ -38,12 +53,15 @@ namespace KDZGame
 
             applyChangesBtn.IsEnabled = true;
             applyChangesBtn.Visibility = Visibility.Visible;
+
+            startGame.IsEnabled = true;
+            startGame.Visibility = Visibility.Visible;
         }
 
         private void updateDataClick(object sender, RoutedEventArgs e)
         {
-            applyChangesBtn_Click(sender, e);
             UpdateData();
+            applyChangesBtn_Click(sender, e);
         }
 
         private void applyChangesBtn_Click(object sender, RoutedEventArgs e)
@@ -83,24 +101,88 @@ namespace KDZGame
                 cr = correntTable.Rows[i]; // строку в отдельную переменную, просто чтобы писать 2 символа вместо 20
 
                 // проверяем каждый параметр так, как нам нужно. Не забываем проверить длину строки у int значений, чтобы не вылетел Overflow
-                if ((cr["Attack"].ToString().Length > int.MaxValue.ToString().Length) || int.Parse(cr["Attack"].ToString()) < 1)                
-                    correntTable.Rows[i]["Attack"] = GameSettings.oneMoreData.Rows[i]["Attack"];             
-                if ((cr["Defence"].ToString().Length > int.MaxValue.ToString().Length) || int.Parse(cr["Defence"].ToString()) < 1)
+                try
+                {
+                    if ((cr["Attack"].ToString().Length > int.MaxValue.ToString().Length) || int.Parse(cr["Attack"].ToString()) < 1)
+                        correntTable.Rows[i]["Attack"] = GameSettings.oneMoreData.Rows[i]["Attack"];
+                }
+                catch (Exception)
+                {
+                    correntTable.Rows[i]["Attack"] = GameSettings.oneMoreData.Rows[i]["Attack"];
+                }
+                try
+                {
+                    if ((cr["Defence"].ToString().Length > int.MaxValue.ToString().Length) || int.Parse(cr["Defence"].ToString()) < 1)
+                        correntTable.Rows[i]["Defence"] = GameSettings.oneMoreData.Rows[i]["Defence"];
+                }
+                catch (Exception)
+                {
                     correntTable.Rows[i]["Defence"] = GameSettings.oneMoreData.Rows[i]["Defence"];
-                if ((cr["Minimum Damage"].ToString().Length > int.MaxValue.ToString().Length) || int.Parse(cr["Minimum Damage"].ToString()) < 1)
+                }
+                try
+                {
+                    if ((cr["Minimum Damage"].ToString().Length > int.MaxValue.ToString().Length) || int.Parse(cr["Minimum Damage"].ToString()) < 1)
+                        correntTable.Rows[i]["Minimum Damage"] = GameSettings.oneMoreData.Rows[i]["Minimum Damage"];
+                }
+                catch (Exception)
+                {
                     correntTable.Rows[i]["Minimum Damage"] = GameSettings.oneMoreData.Rows[i]["Minimum Damage"];
-                if ((cr["Maximum Damage"].ToString().Length > int.MaxValue.ToString().Length) || int.Parse(cr["Maximum Damage"].ToString()) < 1)
+                }
+                try
+                {
+                    if ((cr["Maximum Damage"].ToString().Length > int.MaxValue.ToString().Length) || int.Parse(cr["Maximum Damage"].ToString()) < 1)
+                        correntTable.Rows[i]["Maximum Damage"] = GameSettings.oneMoreData.Rows[i]["Maximum Damage"];
+                }
+                catch (Exception)
+                {
                     correntTable.Rows[i]["Maximum Damage"] = GameSettings.oneMoreData.Rows[i]["Maximum Damage"];
-                if ((cr["Health"].ToString().Length > int.MaxValue.ToString().Length) || int.Parse(cr["Health"].ToString()) < 1)
+                }
+                try
+                {
+                    if ((cr["Health"].ToString().Length > int.MaxValue.ToString().Length) || int.Parse(cr["Health"].ToString()) < 1)
+                        correntTable.Rows[i]["Health"] = GameSettings.oneMoreData.Rows[i]["Health"];
+
+                }
+                catch (Exception)
+                {
                     correntTable.Rows[i]["Health"] = GameSettings.oneMoreData.Rows[i]["Health"];
-                if ((cr["Speed"].ToString().Length > int.MaxValue.ToString().Length) || int.Parse(cr["Speed"].ToString()) < 1)
+                }
+                try
+                {
+                    if ((cr["Speed"].ToString().Length > int.MaxValue.ToString().Length) || int.Parse(cr["Speed"].ToString()) < 1)
+                        correntTable.Rows[i]["Speed"] = GameSettings.oneMoreData.Rows[i]["Speed"];
+                }
+                catch (Exception)
+                {
                     correntTable.Rows[i]["Speed"] = GameSettings.oneMoreData.Rows[i]["Speed"];
-                if ((cr["Growth"].ToString().Length > int.MaxValue.ToString().Length) || int.Parse(cr["Growth"].ToString()) < 1)
+                }
+                try
+                {
+                    if ((cr["Growth"].ToString().Length > int.MaxValue.ToString().Length) || int.Parse(cr["Growth"].ToString()) < 1)
+                        correntTable.Rows[i]["Growth"] = GameSettings.oneMoreData.Rows[i]["Growth"];
+                }
+                catch (Exception)
+                {
                     correntTable.Rows[i]["Growth"] = GameSettings.oneMoreData.Rows[i]["Growth"];
-                if ((cr["AI_Value"].ToString().Length > int.MaxValue.ToString().Length) || int.Parse(cr["AI_Value"].ToString()) < 1)
+                }
+                try
+                {
+                    if ((cr["AI_Value"].ToString().Length > int.MaxValue.ToString().Length) || int.Parse(cr["AI_Value"].ToString()) < 1)
+                        correntTable.Rows[i]["AI_Value"] = GameSettings.oneMoreData.Rows[i]["AI_Value"];
+                }
+                catch (Exception)
+                {
                     correntTable.Rows[i]["AI_Value"] = GameSettings.oneMoreData.Rows[i]["AI_Value"];
-                if ((cr["Gold"].ToString().Length > int.MaxValue.ToString().Length) || int.Parse(cr["Gold"].ToString()) < 0)
+                }
+                try
+                {
+                    if ((cr["Gold"].ToString().Length > int.MaxValue.ToString().Length) || int.Parse(cr["Gold"].ToString()) < 0)
+                        correntTable.Rows[i]["Gold"] = GameSettings.oneMoreData.Rows[i]["Gold"];
+                }
+                catch (Exception)
+                {
                     correntTable.Rows[i]["Gold"] = GameSettings.oneMoreData.Rows[i]["Gold"];
+                }                                                                                                                                    
                 if ((string)cr["Unit_name"] == "")
                     correntTable.Rows[i]["Unit_name"] = GameSettings.oneMoreData.Rows[i]["Unit_name"]; ;
                 // сохраняем данные в статик таблицу (на самом деле юзлесс так как correntTable с статик таблицей уже как-то связались по ссылке (ненавижу шарпу))
@@ -310,7 +392,7 @@ namespace KDZGame
                     if (headerLabels.Length != 10)
                     {
                         MessageBox.Show("Your CSV File is broken.", "Error!", MessageBoxButton.OK);
-                        return;
+                        Environment.Exit(0);
                     }
 
                     if (headerLabels[0] != "Unit_name" || headerLabels[1] != "Attack" || headerLabels[2] != "Defence" || headerLabels[3] != "Minimum Damage" ||
@@ -318,7 +400,7 @@ namespace KDZGame
                         headerLabels[8] != "AI_Value" || headerLabels[9] != "Gold")
                     {
                         MessageBox.Show("Your CSV File is broken.", "Error!", MessageBoxButton.OK);
-                        return;
+                        Environment.Exit(0);
                     }
 
                     foreach (string header in headerLabels)
@@ -343,6 +425,8 @@ namespace KDZGame
                         dt.Rows.Add(dr);
                     }
                 }
+
+                parameterCheck(dt);
 
                 if (dt.Rows.Count > 0)
                 {
@@ -543,6 +627,46 @@ namespace KDZGame
             }
 
             GameSettings.oneMoreData = dt;
+        }
+
+        void parameterCheck(DataTable dt)
+        {
+            int n;
+
+            foreach (DataRow row in dt.Rows)
+            {
+                if (row["Unit_name"].ToString() == "")
+                    row["Unit_name"] = "Unknown_hero_" + GameSettings.count++;
+                if (!int.TryParse(row["Attack"].ToString(), out n) || n < 1)
+                    row["Attack"] = 1;
+                if (!int.TryParse(row["Defence"].ToString(), out n) || n < 1)
+                    row["Defence"] = 1;
+                if (!int.TryParse(row["Minimum Damage"].ToString(), out n) || n < 1)
+                    row["Minimum Damage"] = 1;
+                if (!int.TryParse(row["Maximum Damage"].ToString(), out n) || n < 1)
+                    row["Maximum Damage"] = 1;
+                if (!int.TryParse(row["Health"].ToString(), out n) || n < 1)
+                    row["Health"] = 1;
+                if (!int.TryParse(row["Speed"].ToString(), out n) || n < 1)
+                    row["Speed"] = 1;
+                if (!int.TryParse(row["Growth"].ToString(), out n) || n < 1)
+                    row["Growth"] = 1;
+                if (!int.TryParse(row["AI_Value"].ToString(), out n) || n < 1)
+                    row["AI_Value"] = 1;
+                if (!int.TryParse(row["Gold"].ToString(), out n) || n < 1)
+                    row["Gold"] = 1;
+            }
+
+            for (int i = 0; i < dt.Rows.Count-1; i++)
+            {
+                for (int j = i+1; j < dt.Rows.Count; j++)
+                {
+                    if (dt.Rows[i]["Unit_name"].ToString() == dt.Rows[j]["Unit_name"].ToString())
+                    {
+                        dt.Rows[j]["Unit_name"] = dt.Rows[j]["Unit_name"].ToString() + "_" + GameSettings.count++;
+                    }
+                }
+            }
         }
     }
 }

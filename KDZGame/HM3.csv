@@ -1,9 +1,9 @@
 ﻿Unit_name;Attack;Defence;Minimum Damage;Maximum Damage;Health;Speed;Growth;AI_Value;Gold
 Pikeman;4;5;1;3;10;4;14;80;60
-Halberdier;6;5;2;3;10;5;14;115;75
+Archer;6;5;2;3;10;5;14;115;75
 Archer;6;3;2;3;10;4;9;126;100
 Marksman;6;3;2;3;10;6;9;184;150
-Griffin;8;8;3;6;25;6;7;351;200
+Griffin;8;8;3;-6000;25;6;7;351;200
 RoyalGriffin;9;9;3;6;25;9;7;448;240
 Swordsman;10;12;6;9;35;5;4;445;300
 Crusader;12;12;7;10;35;6;4;558;400
